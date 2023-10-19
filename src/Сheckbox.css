@@ -1,0 +1,105 @@
+/* Remove the unnecessary styles */
+.menu__btn {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* Style the hamburger icon */
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+  display: block;
+  position: absolute;
+  width: 26px;
+  height: 2px;
+  background-color: #000;
+}
+
+.menu__btn > span::before {
+  content: '';
+  top: -8px;
+}
+
+.menu__btn > span::after {
+  content: '';
+  top: 8px;
+}
+
+/* Adjust the menu styles */
+.menu__box {
+  position: fixed;
+  top: 0;
+  left: -300px; /* Initially, the menu is hidden off-screen */
+  width: 300px;
+  height: 100%;
+  padding-top: 80px;
+  list-style: none;
+  text-align: center;
+  background-color: #ECEFF1;
+  box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s; /* Smooth transition for the menu */
+}
+
+.menu__item {
+  padding: 12px 24px;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.menu__item:hover {
+  background-color: #CFD8DC;
+}
+
+/* Style the menu when the checkbox is checked */
+#menu__toggle:checked ~ .menu__btn > span {
+  transform: rotate(45deg);
+}
+
+#menu__toggle:checked ~ .menu__btn > span::before {
+  top: 0;
+  transform: rotate(0);
+}
+
+#menu__toggle:checked ~ .menu__btn > span::after {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+#menu__toggle:checked ~ .menu__box {
+  left: 0;
+}
+
+/* Style list items and adjust spacing */
+.menu__item {
+  padding: 16px 24px; /* Increase the top and bottom padding for spacing */
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.2s; /* Smooth transition on hover */
+}
+
+.menu__item:hover {
+  background-color: #CFD8DC;
+}
+
+/* Close the menu when the checkbox is unchecked */
+#menu__toggle:not(:checked) ~ .menu__box {
+  left: -300px;
+}
+
+#menu__toggle {
+  opacity: 0;
+}
