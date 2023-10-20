@@ -3,7 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+body {
+  background-image: url(/public/onebackground.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
+.header {
+  background-color: rgba(255, 255, 255, 0.445);
+  height: 85px;
+}
 .searchline {
   width: 100%;
 }
@@ -22,7 +31,12 @@
   -moz-border-radius: 50px; /*закругляем углы для Mozilla*/  
   -webkit-border-radius: 50px; /*закругляем углы для Chrome, Safari*/ 
   font-size: 23px;
-  width: 50%;
+  width: 90%;
+  background-color: rgba(245, 245, 245, 0.849);
+}
+
+.search_input:hover {
+  background-color: rgb(255, 255, 255);
 }
 .navbar {
   display: flex;
@@ -30,4 +44,76 @@
 
 .menu__item img {
  padding-right: 10px;
+}
+
+.mainpage-button {
+  text-decoration: none;
+}
+.background-button {
+  text-decoration: none;
+}
+
+.backet-button {
+  text-decoration: none;
+}
+
+.info-button {
+  text-decoration: none;
+}
+
+.user-profile-container {
+  padding-right: 3%;
+  margin-left: 30px;
+  text-align: center;
+}
+
+.avatar {
+  width: 130px;
+  height: 85px;
+  cursor: pointer;
+}
+
+.change-user-popup {
+  width: 130px;
+  height: 75px;
+
+  border: solid;
+  border-width: 1.5px;
+  background-color: rgba(255, 255, 255, 0.829);
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35)
+}
+
+.change-user-popup button {
+  background-color: white;
+  height: 20px;
+  width: 60px;
+  border: solid;
+  border-width: 1px;
+}
+
+.change-user-button {
+  text-decoration: none;
+  color: black;
+}
+
+.addbutton button {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: none;
+}
+
+.user-profile-container-middlepages {
+  right: 0;
+  position: absolute;
+  padding-right: 3%;
+  text-align: center;
+}
+
+.avatar-middlepage {
+  width: 130px;
+  height: 85px;
+  cursor: pointer;
 }

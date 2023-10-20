@@ -3,8 +3,8 @@
   display: flex;
   align-items: center;
   position: fixed;
-  top: 20px;
-  left: 20px;
+  top: 26px;
+  left: 30px;
   width: 26px;
   height: 26px;
   cursor: pointer;
@@ -17,19 +17,19 @@
 .menu__btn > span::after {
   display: block;
   position: absolute;
-  width: 26px;
-  height: 2px;
+  width: 40px;
+  height: 4px;
   background-color: #000;
 }
 
 .menu__btn > span::before {
   content: '';
-  top: -8px;
+  top: -12px;
 }
 
 .menu__btn > span::after {
   content: '';
-  top: 8px;
+  top: 12px;
 }
 
 /* Adjust the menu styles */

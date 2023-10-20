@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Сheckbox.css';
 import './App.css';
+import TodoBackground from './TodoBackground';
+import TodoBacket from './TodoBacket';
+import TodoInfo from './TodoInfo';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 function App() {
   const [value, setValue] = useState('');
@@ -19,6 +23,7 @@ function App() {
   };
 
   return (
+    <body>
     <div className='header'>
       <div className='container'>
         <div className='navbar'>
@@ -29,36 +34,42 @@ function App() {
             </label>
             <ul className='menu__box'>
               <li>
-                <a className='menu__item' href='#'>
+                <span className='menu__item'>
                 <img src='notes.png' alt='Note Icon' className='icon'></img>
                 Заметки
-                </a>
+                </span>
               </li>
+              <Link to="/TodoBackground" className="background-button">
               <li>
-                <a className='menu__item' href='#'>
+                <span className='menu__item'>
                 <img src='/backstyle.png' alt='Note Icon' className='icon'></img>
-                Стиль
-                </a>
+                <span>Фон</span>
+                </span>
               </li>
+              </Link>
+              <Link to="/TodoBacket" className="backet-button">
               <li>
-                <a className='menu__item' href='#'>
+                <span className='menu__item'>
                 <img src='/trash.png' alt='Note Icon' className='icon'></img>
                 Корзина
-                </a>
+                </span>
               </li>
+              </Link>
+              <Link to="/TodoInfo" className="info-button">
               <li>
-                <a className='menu__item' href='#'>
+                <span className='menu__item'>
                 <img src='/helpful.png' alt='Note Icon' className='icon'></img>
                 Справка
-                </a>
+                </span>
               </li>
+              </Link>
             </ul>
           </div>
           <div className='searchline'>
             <form className='searchform'>
                 <input
                   type='text'
-                  placeholder='Меня в школе пиздят'
+                  placeholder='Поиск заметки'
                   className='search_input'
                   value={value}
                   onChange={handleChange}
@@ -66,7 +77,7 @@ function App() {
             </form>
           </div>
           <div className='addbutton'>
-            <img src='/addbutton.png'></img>
+            <button><img src='/addbutton.png'></img></button>
           </div>
           <div className='user-profile-container'>
             <div className='avatar' onClick={toggleChangeUser}>
@@ -74,7 +85,7 @@ function App() {
             </div>
           {isChangeUserVisible && (
             <div className='change-user-popup'>
-              <p>Сменить пользователя</p>
+              <Link to="#" className='change-user-button'><p>Сменить пользователя</p></Link>
               <button onClick={closeChangeUser}>Закрыть</button>
             </div>
           )}
@@ -82,7 +93,19 @@ function App() {
         </div>
       </div>
     </div>
+    </body>
   );
 }
 
-export default App;
+function AppRouter() {
+  return (
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/TodoBackground" element={<TodoBackground />} />
+        <Route path="/TodoInfo" element={<TodoInfo />} />
+        <Route path="/TodoBacket" element={<TodoBacket />} />
+      </Routes>
+  );
+}
+
+export default AppRouter;
