@@ -1,15 +1,18 @@
 import { SignUp } from 'components/SignUp'
 import React from 'react'
 import { Link } from 'react-router-dom';
+import './pages.css';
 
 const RegisterPage = () => {
   return (
-    <div>
-        <h1>Register</h1>
+    <div className="auth-menu">
+    <div className="auth-menu__box">
+        <h1>Регистрация</h1>
         <SignUp />
         <p>
-            Already have an account? <Link to="/login">Sign in</Link>
+            Уже есть аккаунт? <Link to="/login">Войти</Link>
         </p>
+    </div>
     </div>
   )
 }

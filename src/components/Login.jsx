@@ -2,11 +2,11 @@ import {Form} from './Form';
 import {useDispatch} from 'react-redux';
 import {setUser} from 'store/slices/userSlice';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import {useHistory} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Change this import
 
 const Login = () => {
     const dispatch = useDispatch();
-    const {push} = useHistory();
+    const navigate = useNavigate(); // Change this line
     
     const handleLogin = (email, password) => {
         const auth = getAuth();
@@ -18,14 +18,21 @@ const Login = () => {
                     id: user.uid,
                     token: user.accessToken,
                 }));
-                push('/')
+                // Save user data to local storage
+              localStorage.setItem('user', JSON.stringify({
+                email: user.email,
+                id: user.uid,
+                token: user.accessToken,
+              }));
+
+              navigate('/');
             })
             .catch(console.error)
     }
 
   return (
     <Form
-        title='sign in'
+        title='Войти'
         handleClick={handleLogin}
     />
   )

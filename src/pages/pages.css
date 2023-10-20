@@ -1,0 +1,45 @@
+.auth-menu {
+    animation: 1s slowShowing;
+    background-color: rgba(255, 255, 255, 0.589);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35);
+
+    height: 160px;
+    width: 600px;
+    margin: 10% auto;
+    padding-bottom: 50px;
+}
+
+.auth-menu__box {
+    text-align: center;
+    padding-top: 15px;
+}
+
+h1 {
+    margin-bottom: 15px;
+    color: rgba(0, 0, 0, 0.822)
+}
+
+.auth-men p {
+    margin-top: 15px;
+    font-size: 150%;
+}
+
+a {
+    text-decoration: underline;
+    color: rgba(0, 0, 0, 0.308);
+    transition: 0.5s;
+}
+
+a:hover {
+    color: black;
+    transition: 0.5s;
+}
+
+@keyframes slowShowing {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }

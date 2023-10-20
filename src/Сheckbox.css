@@ -20,16 +20,19 @@
   width: 40px;
   height: 4px;
   background-color: #000;
+  transition: 0.5s;
 }
 
 .menu__btn > span::before {
   content: '';
   top: -12px;
+  transition: 0.5s;
 }
 
 .menu__btn > span::after {
   content: '';
   top: 12px;
+  transition: 0.5s;
 }
 
 /* Adjust the menu styles */
@@ -63,20 +66,25 @@
 /* Style the menu when the checkbox is checked */
 #menu__toggle:checked ~ .menu__btn > span {
   transform: rotate(45deg);
+  transition: 0.5s;
 }
 
 #menu__toggle:checked ~ .menu__btn > span::before {
   top: 0;
   transform: rotate(0);
+  transition: 0.5s;
 }
 
 #menu__toggle:checked ~ .menu__btn > span::after {
   top: 0;
   transform: rotate(90deg);
+  transition: 0.5s;
 }
 
 #menu__toggle:checked ~ .menu__box {
   left: 0;
+  transition: 0.5s;
+  
 }
 
 /* Style list items and adjust spacing */

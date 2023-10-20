@@ -12,6 +12,7 @@ body {
 .header {
   background-color: rgba(255, 255, 255, 0.445);
   height: 85px;
+  animation: 1.5s slowShowing;
 }
 .searchline {
   width: 100%;
@@ -68,27 +69,40 @@ body {
 }
 
 .avatar {
-  width: 130px;
+  width: 180px;
   height: 85px;
   cursor: pointer;
 }
 
 .change-user-popup {
-  width: 130px;
+  margin-bottom: 3px;
+  width: 180px;
   height: 75px;
 
-  border: solid;
-  border-width: 1.5px;
   background-color: rgba(255, 255, 255, 0.829);
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35)
 }
 
+.change-user-popup p {
+  transition: 0.5s;
+}
+
+.change-user-popup p:hover {
+  text-decoration: underline;
+  transition: 0.5s;
+}
+
 .change-user-popup button {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.26);
   height: 20px;
   width: 60px;
   border: solid;
   border-width: 1px;
+  cursor: pointer;
+}
+
+.change-user-popup button:hover {
+  background-color: white;
 }
 
 .change-user-button {
@@ -116,4 +130,13 @@ body {
   width: 130px;
   height: 85px;
   cursor: pointer;
+}
+
+@keyframes slowShowing {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

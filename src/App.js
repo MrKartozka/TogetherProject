@@ -5,10 +5,33 @@ import TodoBackground from './TodoBackground';
 import TodoBacket from './TodoBacket';
 import TodoInfo from './TodoInfo';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import { useSelector, useDispatch } from 'react-redux'; // Add imports
+import { setUser, removeUser } from './store/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
+
 
 function App() {
   const [value, setValue] = useState('');
   const [isChangeUserVisible, setChangeUserVisible] = useState(false);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // Check local storage for the user's login status
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+  }, []);
+
+  const handleLogout = () => {
+    // Clear user data from local storage
+    localStorage.removeItem('user');
+
+    // Set the user state to null
+    setUser(null);
+  };
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -22,8 +45,8 @@ function App() {
     setChangeUserVisible(false);
   };
 
+
   return (
-    <body>
     <div className='header'>
       <div className='container'>
         <div className='navbar'>
@@ -80,20 +103,32 @@ function App() {
             <button><img src='/addbutton.png'></img></button>
           </div>
           <div className='user-profile-container'>
-            <div className='avatar' onClick={toggleChangeUser}>
+          <div className='avatar' onClick={toggleChangeUser}>
               <img src='/avatar.png' className='userprofileimg' alt='User Profile' />
             </div>
-          {isChangeUserVisible && (
-            <div className='change-user-popup'>
-              <Link to="#" className='change-user-button'><p>Сменить пользователя</p></Link>
-              <button onClick={closeChangeUser}>Закрыть</button>
-            </div>
-          )}
+            {user ? ( // If the user is logged in, display user info and logout
+              <div className='user-info'>
+                <p>{user.email}</p>
+                <button onClick={handleLogout}>Logout</button>
+              </div>
+            ) : (
+              // If the user is not logged in, display login and register links
+              isChangeUserVisible && (
+                <div className='change-user-popup'>
+                  <Link to="/login" className='change-user-button'>
+                    <p>Войти в профиль</p>
+                  </Link>
+                  <Link to="/register" className='change-user-button'>
+                    <p>Зарегистрироваться</p>
+                  </Link>
+                  <button onClick={closeChangeUser}>Закрыть</button>
+                </div>
+              )
+            )}
         </div>
         </div>
       </div>
     </div>
-    </body>
   );
 }
 
@@ -104,6 +139,8 @@ function AppRouter() {
         <Route path="/TodoBackground" element={<TodoBackground />} />
         <Route path="/TodoInfo" element={<TodoInfo />} />
         <Route path="/TodoBacket" element={<TodoBacket />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
   );
 }

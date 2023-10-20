@@ -1,5 +1,5 @@
 import {Form} from './Form';
-import {useHistory} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'; // Change this import
 import {useDispatch} from 'react-redux';
 import {setUser} from 'store/slices/userSlice';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -7,7 +7,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
     const dispatch = useDispatch();
-    const {push} = useHistory();
+    const navigate = useNavigate(); // Change this line
 
     const handleRegister = (email, password) => {
         const auth = getAuth();
@@ -19,14 +19,14 @@ const SignUp = () => {
                     id: user.uid,
                     token: user.accessToken,
                 }));
-                push('/')
+                navigate('/'); // Change this line
             })
             .catch(console.error)
     }
 
   return (
     <Form
-        title='register'
+        title='Принять'
         handleClick={handleRegister}
     />
   )
