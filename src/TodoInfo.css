@@ -1,0 +1,34 @@
+.questions-and-answers {
+    margin: 6% auto;
+    width: 100%;
+    height: 50em;
+    text-align: center;
+    align-items: center;
+    font-size: 200%;
+}
+
+.questions {
+    margin: 0 auto;
+    padding-top: 5px;
+    width: 45%;
+    height: 3em;
+    background-color: gray;
+    border-radius: 50px;
+}
+
+.answers {
+    margin: 0 auto;
+    padding-top: 5px;
+    width: 45%;
+    height: 3em;
+    background-color: #fa8383;
+    border-radius: 50px;
+}
+
+.questions p {
+    margin-top: 3%;
+}
+
+.answers p {
+    margin-top: 20px;
+}

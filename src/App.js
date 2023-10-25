@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Сheckbox.css';
 import './App.css';
+import './Note.css';
 import TodoBackground from './TodoBackground';
 import TodoBacket from './TodoBacket';
 import TodoInfo from './TodoInfo';
@@ -8,14 +9,18 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { useSelector, useDispatch } from 'react-redux'; // Add imports
-import { setUser, removeUser } from './store/slices/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { nanoid } from 'nanoid';
+import NoteList from './NoteList';
+import AddNote from './AddNote';
+
 
 
 function App() {
   const [value, setValue] = useState('');
   const [isChangeUserVisible, setChangeUserVisible] = useState(false);
   const [user, setUser] = useState(null);
+  const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
+  const [previewBackground, setPreviewBackground] = useState(selectedBackground); 
 
   useEffect(() => {
     // Check local storage for the user's login status
@@ -25,6 +30,23 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    // Check local storage for the selected background image
+    const storedBackground = localStorage.getItem('selectedBackground');
+    if (storedBackground) {
+      setSelectedBackground(storedBackground);
+      document.body.style.backgroundImage = `url(${storedBackground})`;
+      setPreviewBackground(storedBackground);
+    }
+
+    // Check local storage for the user's login status
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+  }, []);
+
+
   const handleLogout = () => {
     // Clear user data from local storage
     localStorage.removeItem('user');
@@ -33,9 +55,10 @@ function App() {
     setUser(null);
   };
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+const handleChange = (event) => {
+  setSearchText(event.target.value);
+};
+
 
   const toggleChangeUser = () => {
     setChangeUserVisible(!isChangeUserVisible);
@@ -45,7 +68,57 @@ function App() {
     setChangeUserVisible(false);
   };
 
+{/*--------------Below---------------------  */}
 
+const [notes, setNotes] = useState([]);
+
+const [searchText, setSearchText] = useState('');
+
+	const [darkMode, setDarkMode] = useState(false);
+
+	useEffect(() => {
+		const savedNotes = JSON.parse(
+			localStorage.getItem('react-notes-app-data')
+		);
+
+		if (savedNotes) {
+			setNotes(savedNotes);
+		}
+	}, []);
+
+	useEffect(() => {
+		localStorage.setItem(
+			'react-notes-app-data',
+			JSON.stringify(notes)
+		);
+	}, [notes]);
+
+	const addNote = (text, title) => {
+		const date = new Date();
+		const newNote = {
+			id: nanoid(),
+      title: title,
+			text: text,
+			date: date.toLocaleDateString(),
+		};
+		const newNotes = [...notes, newNote];
+		setNotes(newNotes);
+	};
+
+	const deleteNote = (id) => {
+		const newNotes = notes.filter((note) => note.id !== id);
+		setNotes(newNotes);
+	};
+
+
+  const [isBlockVisible, setBlockVisibility] = useState(false);
+
+  const toggleBlock = () => {
+    setBlockVisibility(!isBlockVisible);
+  };
+
+  
+{/*--------------Above---------------------  */}
   return (
     <div className='header'>
       <div className='container'>
@@ -80,7 +153,7 @@ function App() {
               </Link>
               <Link to="/TodoInfo" className="info-button">
               <li>
-                <span className='menu__item'>
+                <span className='menu__item abou'>
                 <img src='/helpful.png' alt='Note Icon' className='icon'></img>
                 Справка
                 </span>
@@ -94,22 +167,19 @@ function App() {
                   type='text'
                   placeholder='Поиск заметки'
                   className='search_input'
-                  value={value}
+                  value={searchText}
                   onChange={handleChange}
                 />
             </form>
           </div>
-          <div className='addbutton'>
-            <button><img src='/addbutton.png'></img></button>
-          </div>
           <div className='user-profile-container'>
-          <div className='avatar' onClick={toggleChangeUser}>
+            <div className='avatar' onClick={toggleChangeUser}>
               <img src='/avatar.png' className='userprofileimg' alt='User Profile' />
             </div>
             {user ? ( // If the user is logged in, display user info and logout
               <div className='user-info'>
                 <p>{user.email}</p>
-                <button onClick={handleLogout}>Logout</button>
+                <button onClick={handleLogout}>Выйти</button>
               </div>
             ) : (
               // If the user is not logged in, display login and register links
@@ -125,8 +195,17 @@ function App() {
                 </div>
               )
             )}
+          </div>
         </div>
-        </div>
+        <div className='note-container'>
+  <NoteList
+    notes={notes.filter((note) =>
+      typeof note.text === 'string' && note.title.toLowerCase().includes(searchText)
+    )}
+    handleAddNote={addNote}
+    handleDeleteNote={deleteNote}
+  />
+</div>
       </div>
     </div>
   );

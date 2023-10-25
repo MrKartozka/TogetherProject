@@ -1,0 +1,109 @@
+/* Container Styles */
+.note-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 15px;
+	margin-top: 50px;
+  }
+  
+  /* Notes List Styles */
+  .notes-list {
+	display: grid;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+  
+  /* New Note Styles */
+  .note.new {
+	background-color: hsl(174, 58%, 62%);
+	overflow-y: auto;
+}
+  
+  .note.new input {
+	background-color: hsl(174, 58%, 62%);	
+	border: 0;
+	border-bottom: 1px solid #000;
+	margin-bottom: 15px;
+  }
+  
+  .note.new input:focus {
+	outline: none;
+  }
+  
+  /* Textarea Styles */
+  textarea {
+	border: none;
+	resize: none;
+	word-break: break-all;
+	background-color: #67d7cc;
+	max-height: 500px;
+	overflow-y: auto;
+  }
+  
+  textarea:focus {
+	outline: none;
+  }
+  
+  /* Save Button Styles */
+  .save {
+	background-color: #e1e1e1;
+	border: none;
+	border-radius: 15px;
+	padding: 5px 10px;
+	cursor: pointer;
+  }
+  
+  .save:hover {
+	background-color: #ededed;
+  }
+  
+  /* Note Styles */
+  .note h2 {
+	border: 0;
+	border-bottom: 1px solid #000;
+	margin-bottom: 10px;
+  }
+  
+.note {
+  border-bottom: 2px solid #999;
+  background-color: #fef68a;
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 5em;
+  word-break: break-all;
+  overflow-y: auto;
+}
+  
+  /* Note Footer Styles */
+  .note-footer {
+	margin-top: 230px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+  }
+  
+  /* Delete Icon Styles */
+  .delete-icon {
+	cursor: pointer;
+  }
+  
+  /* Custom Scrollbar Styles (Webkit) */
+  ::-webkit-scrollbar {
+	width: 12px; /* Scrollbar width */
+  }
+  
+  /* Scrollbar Thumb Styles (Webkit) */
+  ::-webkit-scrollbar-thumb {
+	background: #b8b8b8; /* Thumb background color */
+	border-radius: 6px; /* Rounded corners for the thumb */
+  }
+  
+  /* Scrollbar Track Styles (Webkit) */
+  ::-webkit-scrollbar-track {
+	background: #f1f1f1; /* Track background color */
+  }
+  

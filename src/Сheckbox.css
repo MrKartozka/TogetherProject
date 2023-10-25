@@ -59,6 +59,11 @@
   text-decoration: none;
 }
 
+.menu__item.aboutnote {
+  bottom: 0;
+  margin-left: 20%;
+  position: absolute;
+}
 .menu__item:hover {
   background-color: #CFD8DC;
 }

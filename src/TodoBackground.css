@@ -1,0 +1,132 @@
+.background-chose {
+    margin: 15% auto;
+    width: 250px;
+    height: 250px;
+    background-color: blue;
+}
+
+
+.background-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20% auto;
+    background-color: rgba(255, 255, 255, 0.644);
+    width: 320px; /* Increase the width to fit 3x3 */
+    padding: 20px;
+    transition: 1s;
+    border-radius: 32px;
+  }
+
+  .background-list:hover {
+    background-color: rgba(255, 255, 255, 0.925);
+    transition: 1s;
+  }
+
+.background-list img {
+    cursor: pointer;
+    width: 100%; /* Make images take full width of their container */
+    height: auto; /* Keep the aspect ratio */
+    max-width: 100px; /* Limit the width of each image */
+    max-height: 100px; /* Limit the height of each image */
+  }
+
+.background-list button {
+    width: 70%;
+    height: 40%;
+    font-size: 150%;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+.background-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+.background-options {
+    display: grid; /* Use grid layout for 3x3 */
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    gap: 20px;
+    padding: 20px;
+    max-width: 1300px; /* Limit the maximum width */
+    
+  }
+
+.background-option {
+    width: 100%; /* Take full available width in the grid */
+    cursor: pointer;
+  }
+
+.background-option img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    transition: border 0.3s;
+  }
+
+.background-option:hover img {
+    border: 2px solid #3498db;
+  }
+
+.selected-background {
+    width: 200px;
+    height: 200px;
+    margin-top: 20px;
+}
+
+.background-option:hover {
+    border: 2px solid #7fbbff;
+    transition: 0.5s;
+}
+
+.background-options-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px; /* Регулируйте отступ, чтобы разместить кнопки по вашему желанию */
+}
+
+.background-options-buttons button {
+    margin: 10px 80px; /* Регулируйте отступы кнопок по вашему желанию */
+  color: #000000; /* Цвет текста кнопок */
+  border: solid;
+  border-radius: 20px;
+  border-width: 20px;
+  border-color: white;
+  cursor: pointer;
+  font-size: 150%;
+}
+
+#backgroundsavebutton {
+    background-color: #ffffff;
+    border-color:#ffffff;
+    transition: 0.5s;
+}
+
+#backgroundundobutton {
+    background-color: #ffffff;
+    border-color:#ffffff;
+    transition: 0.5s;
+}
+
+#backgroundsavebutton:hover {
+    background-color: rgb(158, 158, 158);
+    border-color: rgb(158, 158, 158);
+    transition: 0.5s;
+}
+
+#backgroundundobutton:hover {
+    background-color: rgb(158, 158, 158);
+    border-color: rgb(158, 158, 158);
+    transition: 0.5s;
+}
