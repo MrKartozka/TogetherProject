@@ -108,6 +108,10 @@
   background-color: #CFD8DC;
 }
 
+.mainpage-button {
+  text-decoration: none;
+}
+
 /* Close the menu when the checkbox is unchecked */
 #menu__toggle:not(:checked) ~ .menu__box {
   left: -300px;

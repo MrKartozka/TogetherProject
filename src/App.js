@@ -153,7 +153,7 @@ const [searchText, setSearchText] = useState('');
               </Link>
               <Link to="/TodoInfo" className="info-button">
               <li>
-                <span className='menu__item abou'>
+                <span className='menu__item aboutnote'>
                 <img src='/helpful.png' alt='Note Icon' className='icon'></img>
                 Справка
                 </span>

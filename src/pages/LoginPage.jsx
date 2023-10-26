@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import  {Login} from 'components/Login';
 import { Link } from 'react-router-dom';
 import './pages.css';
 
 
 const LoginPage = () => {
+  const [value, setValue] = useState('');
+  const [isChangeUserVisible, setChangeUserVisible] = useState(false);
+  const [user, setUser] = useState(null);
+  const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
+  const [previewBackground, setPreviewBackground] = useState(selectedBackground);
+
+  useEffect(() => {
+    const storedBackground = localStorage.getItem('selectedBackground');
+    if (storedBackground) {
+      setSelectedBackground(storedBackground);
+      document.body.style.backgroundImage = `url(${storedBackground})`;
+      setPreviewBackground(storedBackground);
+    }
+    // Check local storage for the user's login status
+    const loggedInUser = localStorage.getItem('user');
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+
+    
+  }, []);
   return (
     <div className='header'>
       <div className='container'>

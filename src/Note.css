@@ -24,7 +24,7 @@
 	border: 0;
 	border-bottom: 1px solid #000;
 	margin-bottom: 15px;
-  margin-top: 50px;
+  font-size: 26px;
   }
   
   .note.new input:focus {
@@ -62,7 +62,7 @@
   .note h2 {
 	border: 0;
 	border-bottom: 1px solid #000;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
   }
   
 .note {
@@ -81,7 +81,6 @@
   
   /* Note Footer Styles */
   .note-footer {
-	margin-top: 230px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -92,19 +91,19 @@
 	cursor: pointer;
   }
   
-  /* Custom Scrollbar Styles (Webkit) */
+
   ::-webkit-scrollbar {
-	width: 12px; /* Scrollbar width */
+	width: 12px; 
   }
   
-  /* Scrollbar Thumb Styles (Webkit) */
+
   ::-webkit-scrollbar-thumb {
-	background: #b8b8b8; /* Thumb background color */
-	border-radius: 6px; /* Rounded corners for the thumb */
+	background: #b8b8b8; 
+	border-radius: 6px; 
   }
   
-  /* Scrollbar Track Styles (Webkit) */
+ 
   ::-webkit-scrollbar-track {
-	background: #f1f1f1; /* Track background color */
+	background: #f1f1f1; 
   }
   
