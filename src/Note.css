@@ -24,6 +24,7 @@
 	border: 0;
 	border-bottom: 1px solid #000;
 	margin-bottom: 15px;
+  margin-top: 50px;
   }
   
   .note.new input:focus {
