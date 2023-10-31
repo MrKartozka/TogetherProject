@@ -1,0 +1,79 @@
+.auth-menu {
+    margin: 15% auto;
+}
+
+.registerlink {
+    text-align: center;
+    padding-top: 18px;
+}
+
+.auth-menu__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.emailbox {
+    border-radius: 8px;
+    width: 400px;
+    height: 40px;
+    font-size: 18px;
+}
+
+.passwordbox {
+    margin-top: 15px;
+    border-radius: 8px;
+    width: 400px;
+    height: 40px;
+    font-size: 18px;
+}
+
+.buttonbox {
+    margin-top: 15px;
+}
+
+.auth-menu__box button {
+    border: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    height: 25px;
+    width: 90px;
+    font-size: 120%;
+    background-color: white;
+}
+
+.auth-menu__box button:hover {
+    background-color: #ebebeb;
+}
+
+h1 {
+    margin-bottom: 15px;
+    color: rgba(0, 0, 0, 0.822)
+}
+
+.auth-men p {
+    margin-top: 15px;
+    font-size: 150%;
+}
+
+a {
+    text-decoration: underline;
+    color: rgba(0, 0, 0, 0.308);
+    transition: 0.5s;
+}
+
+a:hover {
+    color: black;
+    transition: 0.5s;
+}
+
+@keyframes slowShowing {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }

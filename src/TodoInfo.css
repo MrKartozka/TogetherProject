@@ -4,12 +4,11 @@
     height: 50em;
     text-align: center;
     align-items: center;
-    font-size: 200%;
+    font-size: 150%;
 }
 
 .questions {
-    margin: 0 auto;
-    padding-top: 5px;
+    margin-left: 15%;
     width: 45%;
     height: 3em;
     background-color: gray;
@@ -17,18 +16,19 @@
 }
 
 .answers {
-    margin: 0 auto;
-    padding-top: 5px;
+    margin-left: 45%;
+    padding-top: 3px;
+    margin-bottom: 5px;
     width: 45%;
-    height: 3em;
+    height: 4em;
     background-color: #fa8383;
     border-radius: 50px;
 }
 
 .questions p {
-    margin-top: 3%;
+    padding-top: 15px;
 }
 
 .answers p {
-    margin-top: 20px;
+    margin-top: 15px;
 }

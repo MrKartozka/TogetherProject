@@ -1,0 +1,40 @@
+[debug] [2023-10-31T19:19:50.814Z] ----------------------------------------------------------------------
+[debug] [2023-10-31T19:19:50.817Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\satin\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy --only firestore
+[debug] [2023-10-31T19:19:50.817Z] CLI Version:   12.7.0
+[debug] [2023-10-31T19:19:50.817Z] Platform:      win32
+[debug] [2023-10-31T19:19:50.817Z] Node Version:  v20.9.0
+[debug] [2023-10-31T19:19:50.817Z] Time:          Tue Oct 31 2023 22:19:50 GMT+0300 (Москва, стандартное время)
+[debug] [2023-10-31T19:19:50.818Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-10-31T19:19:50.869Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-10-31T19:19:50.869Z] > authorizing via signed-in user (devilishkingcorp@gmail.com)
+[debug] [2023-10-31T19:19:50.869Z] [iam] checking project authorization-bb49d for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]
+[debug] [2023-10-31T19:19:50.871Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/authorization-bb49d:testIamPermissions [none]
+[debug] [2023-10-31T19:19:50.871Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/authorization-bb49d:testIamPermissions x-goog-quota-user=projects/authorization-bb49d
+[debug] [2023-10-31T19:19:50.871Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/authorization-bb49d:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[debug] [2023-10-31T19:19:51.742Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/authorization-bb49d:testIamPermissions 200
+[debug] [2023-10-31T19:19:51.743Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/authorization-bb49d:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get"]}
+[info] 
+[info] === Deploying to 'authorization-bb49d'...
+[info] 
+[info] i  deploying firestore 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  cloud.firestore: checking firestore.rules for compilation errors... 
+[debug] [2023-10-31T19:19:51.747Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/authorization-bb49d:test [none]
+[debug] [2023-10-31T19:19:51.747Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/authorization-bb49d:test [omitted]
+[debug] [2023-10-31T19:19:52.615Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/authorization-bb49d:test 200
+[debug] [2023-10-31T19:19:52.615Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/authorization-bb49d:test {}
+[info] +  cloud.firestore: rules file firestore.rules compiled successfully 
+[info] i  firestore: deploying indexes... 
+[debug] [2023-10-31T19:19:52.619Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/authorization-bb49d/releases pageSize=10&pageToken=
+[debug] [2023-10-31T19:19:52.620Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/authorization-bb49d/databases/(default)/collectionGroups/-/indexes [none]
+[debug] [2023-10-31T19:19:52.964Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/authorization-bb49d/databases/(default)/collectionGroups/-/indexes 200
+[debug] [2023-10-31T19:19:52.964Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/authorization-bb49d/databases/(default)/collectionGroups/-/indexes {"indexes":[{"name":"projects/authorization-bb49d/databases/(default)/collectionGroups/users/indexes/CICAgJjF9oIK","queryScope":"COLLECTION","fields":[{"fieldPath":"userId","order":"ASCENDING"},{"fieldPath":"notes","order":"ASCENDING"},{"fieldPath":"noteId","order":"ASCENDING"},{"fieldPath":"__name__","order":"ASCENDING"}],"state":"READY"}]}
+[debug] [2023-10-31T19:19:52.964Z] >>> [apiv2][query] GET https://firestore.googleapis.com/v1/projects/authorization-bb49d/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* [none]
+[debug] [2023-10-31T19:19:53.062Z] <<< [apiv2][status] GET https://firestore.googleapis.com/v1/projects/authorization-bb49d/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* 200
+[debug] [2023-10-31T19:19:53.062Z] <<< [apiv2][body] GET https://firestore.googleapis.com/v1/projects/authorization-bb49d/databases/(default)/collectionGroups/-/fields?filter=indexConfig.usesAncestorConfig=false OR ttlConfig:* {"fields":[{"name":"projects/authorization-bb49d/databases/(default)/collectionGroups/__default__/fields/*","indexConfig":{"indexes":[{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"ASCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","order":"DESCENDING"}],"state":"READY"},{"queryScope":"COLLECTION","fields":[{"fieldPath":"*","arrayConfig":"CONTAINS"}],"state":"READY"}]}}]}
+[debug] [2023-10-31T19:19:53.063Z] Skipping existing index: {"collectionGroup":"users","queryScope":"COLLECTION","fields":[{"fieldPath":"userId","order":"ASCENDING"},{"fieldPath":"notes","order":"ASCENDING"},{"fieldPath":"noteId","order":"ASCENDING"}]}
+[info] +  firestore: deployed indexes in firestore.indexes.json successfully for (default) database 
+[debug] [2023-10-31T19:19:53.413Z] <<< [apiv2][status] GET https://firebaserules.googleapis.com/v1/projects/authorization-bb49d/releases 200
+[debug] [2023-10-31T19:19:53.413Z] <<< [apiv2][body] GET https://firebaserules.googleapis.com/v1/projects/authorization-bb49d/releases {"releases":[{"name":"projects/authorization-bb49d/releases/cloud.firestore","rulesetName":"projects/authorization-bb49d/rulesets/b6b545d5-42e8-48f3-9038-51cc5b63d348","createTime":"2023-10-31T12:50:10.808110Z","updateTime":"2023-10-31T17:53:40.033645Z"}]}
+[debug] [2023-10-31T19:19:53.414Z] >>> [apiv2][query] GET https://firebaserules.googleapis.com/v1/projects/authorization-bb49d/rulesets/b6b545d5-42e8-48f3-9038-51cc5b63d348 [none]

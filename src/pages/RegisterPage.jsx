@@ -27,7 +27,6 @@ const RegisterPage = () => {
   }, []);
   return (
     <div className='header'>
-      <div className='container'>
         <div className='navbar'>
         <div className='hamburger-menu'>
             <input id='menu__toggle' type='checkbox' />
@@ -61,7 +60,7 @@ const RegisterPage = () => {
               </Link>
               <Link to="/TodoInfo" className="info-button">
               <li>
-                <span className='menu__item'>
+                <span className='menu__item aboutnote'>
                 <img src='/helpful.png' alt='Note Icon' className='icon'></img>
                 Справка
                 </span>
@@ -69,16 +68,9 @@ const RegisterPage = () => {
               </Link>
             </ul>
           </div>
-    <div className="auth-menu">
-    <div className="auth-menu__box">
-        <h1>Регистрация</h1>
+          </div>
+          <div className='container'>
         <SignUp />
-        <p>
-            Уже есть аккаунт? <Link to="/login">Войти</Link>
-        </p>
-    </div>
-    </div>
-        </div>
       </div>
     </div>
   )

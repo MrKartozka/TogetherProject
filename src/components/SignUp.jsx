@@ -1,4 +1,5 @@
 import {Form} from './Form';
+import { FormReg } from './FormReg';
 import { useNavigate } from 'react-router-dom'; // Change this import
 import {useDispatch} from 'react-redux';
 import {setUser} from 'store/slices/userSlice';
@@ -25,7 +26,7 @@ const SignUp = () => {
     }
 
   return (
-    <Form
+    <FormReg
         title='Принять'
         handleClick={handleRegister}
     />

@@ -2,11 +2,9 @@
     animation: 1s slowShowing;
     background-color: rgba(255, 255, 255, 0.589);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35);
-
-    height: 160px;
-    width: 600px;
-    margin: 10% auto;
-    padding-bottom: 50px;
+    height: 280px;
+    width: 560px;
+    
 }
 
 .auth-menu__box {
@@ -23,6 +21,25 @@ h1 {
 .auth-men p {
     margin-top: 15px;
     font-size: 150%;
+}
+
+.menu__item {
+    padding: 12px 24px;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  
+.menu__item.aboutnote {
+    bottom: 0;
+    position: absolute;
+    font-size: 20px;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    width: 100%;
 }
 
 a {
