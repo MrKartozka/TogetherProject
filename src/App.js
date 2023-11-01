@@ -11,6 +11,8 @@ import RegisterPage from './pages/RegisterPage';
 import { useSelector, useDispatch } from 'react-redux'; // Add imports
 import { nanoid } from 'nanoid';
 import NoteList from './NoteList';
+import { getNotesFromFirestore, addNoteToFirestore } from './notesService'; // Import Firestore functions
+
 
 function App() {
   const [searchText, setSearchText] = useState('');
@@ -43,6 +45,28 @@ function App() {
     localStorage.setItem('react-notes-app-data', JSON.stringify(notes));
   }, [notes]);
 
+
+  const handleCreateNote = async (title, text) => {
+    if (user) {
+      const userId = user.id; // Use your user ID from authentication
+      await addNoteToFirestore(userId, title, text);
+    }
+  };
+
+  useEffect(() => {
+    // Fetch and display user-specific notes when the component mounts
+    if (user) {
+      getNotesFromFirestore(user.id)
+        .then((notes) => {
+          console.log("Fetched notes from Firestore:", notes);
+          setNotes(notes);
+        })
+        .catch((error) => {
+          console.error("Error fetching notes from Firestore:", error);
+        });
+    }
+  }, [user]);
+
   const addNote = (text, title) => {
     const date = new Date();
     const newNote = {
@@ -52,7 +76,12 @@ function App() {
       date: date.toLocaleDateString(),
     };
     setNotes([...notes, newNote]);
-  };
+    console.log("Note added:", newNote);
+
+    // After adding a note, also save it to Firestore
+    handleCreateNote(title, text);
+  }
+
 
   const deleteNote = (id) => {
     const newNotes = notes.filter((note) => note.id !== id);

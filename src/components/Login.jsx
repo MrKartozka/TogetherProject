@@ -18,6 +18,7 @@ const Login = () => {
           id: user.uid,
           token: user.accessToken,
         }));
+        console.log("User ID:", user.uid);
         // Save user data to local storage
         localStorage.setItem('user', JSON.stringify({
           email: user.email,

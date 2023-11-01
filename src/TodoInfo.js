@@ -4,6 +4,26 @@ import './App.css';
 import './TodoInfo.css';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
+function FAQItem({ question, answer }) {
+  const [isActive, setIsActive] = useState(false);
+
+  const toggleAnswer = () => {
+    setIsActive(!isActive);
+  };
+
+  return (
+    <div className="questions-and-answers">
+      <div className="question" onClick={toggleAnswer}>
+      {isActive ? '▼' : '▽'} {question} {isActive ? '▼' : '▽'}
+      </div>
+      {isActive && (
+        <div className="answer active">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function App() {
   const [value, setValue] = useState('');
@@ -99,7 +119,9 @@ function App() {
             {user ? ( // If the user is logged in, display user info and logout
               <div className='user-info'>
                 <p>{user.email}</p>
+                <Link to="/login">
                 <button onClick={handleLogout}>Выйти</button>
+                </Link>
               </div>
             ) : (
               // If the user is not logged in, display login and register links
@@ -117,27 +139,31 @@ function App() {
             )}
         </div>
         </div>
+        <div className='faq-box'>
         <div className="questions-and-answers">
-          <div className="questions">
-            <p>Почему именно мы?</p>
-            </div>
-          <div className='answers'>
-          <p>Наш сайт обладает уникальным функционалом, который облегчит вам жизнь</p>
-          </div>
-          <div className="questions">
-          <p>Для кого подойдет наш сайт?</p>
-            </div>
-          <div className='answers'>
-          <p>Вы можете использовать заметки для всего! От важных дел до рутинной работы</p>
-          </div>
-          <div className="questions">
-          <p>Сколько это стоит?</p>
-            </div>
-          <div className='answers'>
-          <p>Абсолютно Б Е С П Л А Т Н О</p>
-          </div>
-      </div>
-      </div>
+          <FAQItem
+            question="Почему именно мы?"
+            answer="Наш сайт обладает уникальным функционалом, который облегчит вам жизнь"
+          />
+          <FAQItem
+            question="Для кого подойдет наш сайт?"
+            answer="Вы можете использовать заметки для всего! От важных дел до рутинной работы"
+          />
+          <FAQItem
+            question="Что нельзя писать в заметках?"
+            answer="Никаких ограничений нет, соблюдайте лишь правила интернета"
+          />
+           <FAQItem
+            question="Сколько это стоит?"
+            answer="Абсолютно Б Е С П Л А Т Н О"
+          />
+           <FAQItem
+            question="Будут ли обновления фукнционала?"
+            answer="Да, в ближайшем будущем!"
+          />
+        </div>
+        </div>
+        </div>
     </div>
   );
 }

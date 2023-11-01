@@ -138,7 +138,9 @@ function TodoBackground() {
             {user ? ( // If the user is logged in, display user info and logout
               <div className='user-info'>
                 <p>{user.email}</p>
+                <Link to="/login">
                 <button onClick={handleLogout}>Выйти</button>
+                </Link>
               </div>
             ) : (
               // If the user is not logged in, display login and register links
