@@ -18,7 +18,6 @@ const LoginPage = () => {
       document.body.style.backgroundImage = `url(${storedBackground})`;
       setPreviewBackground(storedBackground);
     }
-    // Check local storage for the user's login status
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
@@ -72,7 +71,7 @@ const LoginPage = () => {
         </div>
       </div>
       <div className='container'>
-      <Login />
+        <Login />
       </div>
     </div>
   )

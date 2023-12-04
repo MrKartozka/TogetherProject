@@ -1,5 +1,5 @@
 .faq-box {
-    padding-top: 7.5%;
+    margin-top: 200px;
 }
 .questions-and-answers {
     margin-bottom: 20px;
@@ -12,8 +12,8 @@
     border-radius: 10px;
     padding-top: 10px;
     margin: 0 auto;
-    width: 50%;
-    height: 3em;
+    max-width: 55%;
+    max-height: 3em;
     background-color: #f0f0f0;
     cursor: pointer;
     font-weight: bold;
@@ -21,10 +21,10 @@
 
 .answer {
     border-radius: 10px;
-    padding-top: 15px;
+    padding-top: 5px;
     margin: 0 auto;
-    width: 50%;
-    height: 3em;
+    max-width: 50%;
+    max-height: 15em;
     background-color: #c4c4c4;
     display: none;
     margin-top: 10px;
@@ -44,3 +44,13 @@
         opacity: 1;
     }
 }
+
+@media only screen and (max-width: 600px) {
+    .faq-box {
+      margin-top: 200px;
+    }
+    .question, .answer {
+      font-size: 22px;
+      max-width: 70%;
+    }
+  }

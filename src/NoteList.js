@@ -1,30 +1,31 @@
 import Note from './Note';
 import AddNote from './AddNote';
 import './Note.css';
-import { format, isValid } from 'date-fns';
+import { format, parseISO, isValid } from 'date-fns';
 
-const NotesList = ({
-  notes,
-  handleAddNote,
-  handleDeleteNote,
-}) => {
+const NotesList = ({ notes, handleAddNote, handleDeleteNote }) => {
   return (
     <div className='notes-list'>
       {notes.map((note) => {
-        const date = new Date(note.date);
-        if (isValid(date)) {
-          return (
-            <Note
-              key={note.id}
-              id={note.id}
-              title={note.title}
-              text={note.text}
-              date={format(date, 'dd.MM.yyyy')}
-              handleDeleteNote={handleDeleteNote}
-            />
-          );
+        let formattedDate = note.date;
+        try {
+          const parsedDate = parseISO(note.date);
+          if (isValid(parsedDate)) {
+            formattedDate = format(parsedDate, 'dd.MM.yyyy');
+          }
+        } catch (error) {
+          console.error('Error formatting date:', error);
         }
-        return null; // Опционально, можно игнорировать недопустимые даты
+        return (
+          <Note
+            key={note.id}
+            id={note.id}
+            title={note.title}
+            text={note.text}
+            date={formattedDate}
+            handleDeleteNote={handleDeleteNote}
+          />
+        );
       })}
       <AddNote handleAddNote={handleAddNote} />
     </div>

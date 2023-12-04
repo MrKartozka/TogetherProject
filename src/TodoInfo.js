@@ -14,7 +14,7 @@ function FAQItem({ question, answer }) {
   return (
     <div className="questions-and-answers">
       <div className="question" onClick={toggleAnswer}>
-      {isActive ? '▼' : '▽'} {question} {isActive ? '▼' : '▽'}
+        {isActive ? '▼' : '▽'} {question} {isActive ? '▼' : '▽'}
       </div>
       {isActive && (
         <div className="answer active">
@@ -39,26 +39,20 @@ function App() {
       document.body.style.backgroundImage = `url(${storedBackground})`;
       setPreviewBackground(storedBackground);
     }
-    // Check local storage for the user's login status
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
     }
-
-    
   }, []);
 
   const handleLogout = () => {
-    // Clear user data from local storage
     localStorage.removeItem('user');
-
-    // Set the user state to null
     setUser(null);
   };
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-  };
+  // const handleChange = (event) => {
+  //   setValue(event.target.value);
+  // };
 
   const toggleChangeUser = () => {
     setChangeUserVisible(!isChangeUserVisible);
@@ -78,37 +72,37 @@ function App() {
               <span></span>
             </label>
             <ul className='menu__box'>
-            <Link to="/" className="mainpage-button">
-            <li>
-                <span className='menu__item'>
-                <img src='notes.png' alt='Note Icon' className='icon'></img>
-                Заметки
-                </span>
-              </li>
+              <Link to="/" className="mainpage-button">
+                <li>
+                  <span className='menu__item'>
+                    <img src='notes.png' alt='Note Icon' className='icon'></img>
+                    Заметки
+                  </span>
+                </li>
               </Link>
               <Link to="/TodoBackground" className="background-button">
-              <li>
-                <span className='menu__item'>
-                <img src='/backstyle.png' alt='Note Icon' className='icon'></img>
-                <span>Фон</span>
-                </span>
-              </li>
+                <li>
+                  <span className='menu__item'>
+                    <img src='/backstyle.png' alt='Note Icon' className='icon'></img>
+                    <span>Фон</span>
+                  </span>
+                </li>
               </Link>
               <Link to="/TodoBacket" className="backet-button">
-              <li>
-                <span className='menu__item'>
-                <img src='/trash.png' alt='Note Icon' className='icon'></img>
-                Корзина
-                </span>
-              </li>
+                <li>
+                  <span className='menu__item'>
+                    <img src='/trash.png' alt='Note Icon' className='icon'></img>
+                    Корзина
+                  </span>
+                </li>
               </Link>
               <Link to="/TodoInfo" className="info-button">
-              <li>
-                <span className='menu__item aboutnote'>
-                <img src='/helpful.png' alt='Note Icon' className='icon'></img>
-                Справка
-                </span>
-              </li>
+                <li>
+                  <span className='menu__item aboutnote'>
+                    <img src='/helpful.png' alt='Note Icon' className='icon'></img>
+                    Справка
+                  </span>
+                </li>
               </Link>
             </ul>
           </div>
@@ -116,15 +110,14 @@ function App() {
             <div className='avatar-middlepage' onClick={toggleChangeUser}>
               <img src='/avatar.png' className='userprofileimg' alt='User Profile' />
             </div>
-            {user ? ( // If the user is logged in, display user info and logout
+            {user ? (
               <div className='user-info'>
                 <p>{user.email}</p>
                 <Link to="/login">
-                <button onClick={handleLogout}>Выйти</button>
+                  <button onClick={handleLogout}>Выйти</button>
                 </Link>
               </div>
             ) : (
-              // If the user is not logged in, display login and register links
               isChangeUserVisible && (
                 <div className='change-user-popup'>
                   <Link to="/login" className='change-user-button'>
@@ -137,33 +130,33 @@ function App() {
                 </div>
               )
             )}
-        </div>
+          </div>
         </div>
         <div className='faq-box'>
-        <div className="questions-and-answers">
-          <FAQItem
-            question="Почему именно мы?"
-            answer="Наш сайт обладает уникальным функционалом, который облегчит вам жизнь"
-          />
-          <FAQItem
-            question="Для кого подойдет наш сайт?"
-            answer="Вы можете использовать заметки для всего! От важных дел до рутинной работы"
-          />
-          <FAQItem
-            question="Что нельзя писать в заметках?"
-            answer="Никаких ограничений нет, соблюдайте лишь правила интернета"
-          />
-           <FAQItem
-            question="Сколько это стоит?"
-            answer="Абсолютно Б Е С П Л А Т Н О"
-          />
-           <FAQItem
-            question="Будут ли обновления фукнционала?"
-            answer="Да, в ближайшем будущем!"
-          />
+          <div className="questions-and-answers">
+            <FAQItem
+              question="Почему именно мы?"
+              answer="Наш сайт обладает уникальным функционалом, который облегчит вам жизнь"
+            />
+            <FAQItem
+              question="Для кого подойдет наш сайт?"
+              answer="Вы можете использовать заметки для всего! От важных дел до рутинной работы"
+            />
+            <FAQItem
+              question="Что нельзя писать в заметках?"
+              answer="Никаких ограничений нет, соблюдайте лишь правила интернета"
+            />
+            <FAQItem
+              question="Сколько это стоит?"
+              answer="Абсолютно Б Е С П Л А Т Н О"
+            />
+            <FAQItem
+              question="Будут ли обновления фукнционала?"
+              answer="Да, в ближайшем будущем!"
+            />
+          </div>
         </div>
-        </div>
-        </div>
+      </div>
     </div>
   );
 }
