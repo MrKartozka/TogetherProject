@@ -45,7 +45,6 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-/* Navbar Styles */
 .navbar {
   display: flex;
 }
@@ -65,7 +64,6 @@ body {
   text-decoration: none;
 }
 
-/* User Profile Styles */
 .user-profile-container {
   padding-right: 3%;
   margin-left: 20px;
@@ -112,7 +110,7 @@ body {
   text-decoration: none;
   color: black;
 }
-/* Middle Page Styles */
+
 .user-profile-container-middlepages {
   right: 0;
   position: absolute;
@@ -129,7 +127,7 @@ body {
 .user-info {
   position: absolute;
 }
-/* User Info Styles */
+
 .user-info button {
   margin-top: 7px;
   border: solid 5px;
@@ -220,4 +218,3 @@ body {
     margin-top: 30px;
   }
 }
-

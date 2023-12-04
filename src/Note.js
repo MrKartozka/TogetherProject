@@ -36,3 +36,4 @@ const Note = ({ id, title, text, date, handleDeleteNote, handleRestoreNote, isDe
 };
 
 export default Note;
+
