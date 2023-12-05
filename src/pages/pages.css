@@ -2,15 +2,83 @@
     animation: 1s slowShowing;
     background-color: rgba(255, 255, 255, 0.589);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35);
-    height: 280px;
+    height: 300px;
     width: 560px;
-    
+    margin: 15% auto;
+}
+
+.auth-menu-reg {
+    animation: 1s slowShowing;
+    background-color: rgba(255, 255, 255, 0.589);
+    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35);
+    height: 350px;
+    width: 560px;
+    margin: 15% auto;
+}
+
+.auth-menu__box .emailbox,
+.auth-menu__box .passwordbox {
+    text-indent: 10px; 
+}
+
+.registerlink {
+    text-align: center;
+    padding-top: 15px;
+}
+
+.googlelink {
+    margin: 10px auto;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    width: 200px;
+    height: 30px;
+    background-color: white;
+}
+
+.emailbox {
+    border-radius: 8px;
+    width: 400px;
+    height: 40px;
+    font-size: 18px;
+}
+
+.passwordbox {
+    margin-top: 15px;
+    border-radius: 8px;
+    width: 400px;
+    height: 40px;
+    font-size: 18px;
+}
+
+.buttonbox {
+    margin-top: 15px;
+}
+
+.auth-menu__box button {
+    border: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    height: 25px;
+    width: 90px;
+    font-size: 120%;
+    background-color: white;
+}
+
+.auth-menu__box button:hover {
+    background-color: #ebebeb;
 }
 
 .auth-menu__box {
-    text-align: center;
     padding-top: 15px;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
 }
 
 h1 {
@@ -53,6 +121,21 @@ a:hover {
     transition: 0.5s;
 }
 
+.password-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .passwordbox {
+    flex-grow: 1;
+  }
+  
+  .password-toggle-icon {
+    margin-left: -25px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
 @keyframes slowShowing {
     0% {
       opacity: 0;
@@ -60,4 +143,22 @@ a:hover {
     100% {
       opacity: 1;
     }
-  }
+}
+
+@media only screen and (max-width: 600px) {
+    .auth-menu {
+        height: 300px;
+        max-width: 100%;
+        margin-top: 100px;
+    }
+    .emailbox, .passwordbox {
+        width: 300px;
+    }
+
+    .auth-menu-reg {
+        height: 350px;
+        max-width: 100%;
+        margin-top: 100px;
+    }
+}
+

@@ -7,7 +7,7 @@ import './TodoBackground.css';
 function TodoBackground() {
   const [isBackgroundModalVisible, setBackgroundModalVisible] = useState(false);
   const [backgrounds, setBackgrounds] = useState([
-    'onebackground.png', // Add paths to your background images
+    'onebackground.png',
     'secondbackground.png',
     'thirdbackground.png',
     'fourbackground.png',
@@ -16,13 +16,11 @@ function TodoBackground() {
     'sevenbackground.png',
     'eightbackground.png',
     'ninebackground.png',
-    // Add more background image paths
   ]);
   const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
   const [previewBackground, setPreviewBackground] = useState(selectedBackground);
 
   useEffect(() => {
-    // Check local storage for the selected background
     const storedBackground = localStorage.getItem('selectedBackground');
     if (storedBackground) {
       setSelectedBackground(storedBackground);
@@ -46,14 +44,13 @@ function TodoBackground() {
 
   const handleSaveBackground = () => {
     setSelectedBackground(previewBackground);
-    // Save the selected background to local storage
     localStorage.setItem('selectedBackground', previewBackground);
     closeBackgroundModal();
   };
 
   const handleCancel = () => {
-    setPreviewBackground(selectedBackground); // Reset preview to selected background
-    document.body.style.backgroundImage = `url(${selectedBackground})`; // Reset body background
+    setPreviewBackground(selectedBackground);
+    document.body.style.backgroundImage = `url(${selectedBackground})`;
     closeBackgroundModal();
   };
 
@@ -62,7 +59,6 @@ function TodoBackground() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Check local storage for the user's login status
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
@@ -70,10 +66,7 @@ function TodoBackground() {
   }, []);
 
   const handleLogout = () => {
-    // Clear user data from local storage
     localStorage.removeItem('user');
-
-    // Set the user state to null
     setUser(null);
   };
 
@@ -135,13 +128,14 @@ function TodoBackground() {
             <div className='avatar-middlepage' onClick={toggleChangeUser}>
               <img src='/avatar.png' className='userprofileimg' alt='User Profile' />
             </div>
-            {user ? ( // If the user is logged in, display user info and logout
+            {user ? (
               <div className='user-info'>
                 <p>{user.email}</p>
-                <button onClick={handleLogout}>Выйти</button>
+                <Link to="/login">
+                  <button onClick={handleLogout}>Выйти</button>
+                </Link>
               </div>
             ) : (
-              // If the user is not logged in, display login and register links
               isChangeUserVisible && (
                 <div className='change-user-popup'>
                   <Link to="/login" className='change-user-button'>
@@ -154,7 +148,7 @@ function TodoBackground() {
                 </div>
               )
             )}
-        </div>
+          </div>
         </div>
         <div className="background-list">
           <img
@@ -183,8 +177,8 @@ function TodoBackground() {
               ))}
             </div>
             <div className='background-options-buttons'>
-            <button id='backgroundsavebutton' onClick={handleSaveBackground}>Сохранить</button>
-            <button id='backgroundundobutton' onClick={handleCancel}>Отмена</button>
+              <button id='backgroundsavebutton' onClick={handleSaveBackground}>Сохранить</button>
+              <button id='backgroundundobutton' onClick={handleCancel}>Отмена</button>
             </div>
           </div>
         )}

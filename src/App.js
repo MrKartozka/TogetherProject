@@ -5,12 +5,12 @@ import './Note.css';
 import TodoBackground from './TodoBackground';
 import TodoBacket from './TodoBacket';
 import TodoInfo from './TodoInfo';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import { useSelector, useDispatch } from 'react-redux'; // Add imports
 import { nanoid } from 'nanoid';
 import NoteList from './NoteList';
+import { getNotesFromFirestore, addNoteToFirestore, deleteNoteFromFirestore, restoreNoteFromTrash } from './notesService';
 
 function App() {
   const [searchText, setSearchText] = useState('');
@@ -18,12 +18,18 @@ function App() {
   const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
   const [previewBackground, setPreviewBackground] = useState(selectedBackground);
   const [notes, setNotes] = useState([]);
+  const [userProfileImage, setUserProfileImage] = useState('/avatar.png');
   const [isChangeUserVisible, setChangeUserVisible] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem('user'));
-    if (loggedInUser) {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const loggedInUser = JSON.parse(storedUser);
       setUser(loggedInUser);
+      if (loggedInUser.photoURL) {
+        setUserProfileImage(loggedInUser.photoURL);
+      }
     }
 
     const storedBackground = localStorage.getItem('selectedBackground');
@@ -43,6 +49,27 @@ function App() {
     localStorage.setItem('react-notes-app-data', JSON.stringify(notes));
   }, [notes]);
 
+  const handleCreateNote = async (title, text) => {
+    if (user) {
+      const userId = user.id;
+      const newNote = await addNoteToFirestore(userId, title, text);
+      setNotes([...notes, newNote]);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      getNotesFromFirestore(user.id)
+        .then((notes) => {
+          console.log("Fetched notes from Firestore:", notes);
+          setNotes(notes);
+        })
+        .catch((error) => {
+          console.error("Error fetching notes from Firestore:", error);
+        });
+    }
+  }, [user]);
+  
   const addNote = (text, title) => {
     const date = new Date();
     const newNote = {
@@ -51,12 +78,26 @@ function App() {
       text: text,
       date: date.toLocaleDateString(),
     };
+
     setNotes([...notes, newNote]);
+    handleCreateNote(title, text);
   };
 
   const deleteNote = (id) => {
-    const newNotes = notes.filter((note) => note.id !== id);
-    setNotes(newNotes);
+    if (user) {
+      const noteToDelete = notes.find((note) => note.id === id);
+      if (noteToDelete) {
+        deleteNoteFromFirestore(user.id, id)
+          .then(() => {
+            const newNotes = notes.filter((note) => note.id !== id);
+            setNotes(newNotes);
+            console.log('Note deleted successfully');
+          })
+          .catch((error) => {
+            console.error('Error deleting note from Firestore:', error);
+          });
+      }
+    }
   };
 
   const toggleChangeUser = () => {
@@ -70,8 +111,10 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
+    setUserProfileImage('/avatar.png');
+    navigate('/login');
   };
-
+  
   return (
     <div className='header'>
       <div className='container'>
@@ -126,10 +169,11 @@ function App() {
             </form>
           </div>
           <div className='user-profile-container'>
-            <div className='avatar' onClick={toggleChangeUser}>
-              <img src='/avatar.png' className='userprofileimg' alt='User Profile' />
-            </div>
-            {user ? (
+          <div className='avatar' onClick={toggleChangeUser}>
+          <img src={user ? userProfileImage : '/avatar.png'} className='userprofileimg' alt='User Profile' />
+        </div>
+        {isChangeUserVisible && (
+          user ? (
               <div className='user-info'>
                 <p>{user.email}</p>
                 <button onClick={handleLogout}>Выйти</button>
@@ -146,7 +190,7 @@ function App() {
                   <button onClick={closeChangeUser}>Закрыть</button>
                 </div>
               )
-            )}
+            ))}
           </div>
         </div>
         <div className='note-container'>
