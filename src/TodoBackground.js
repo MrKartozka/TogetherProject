@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Сheckbox.css';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './TodoBackground.css';
 
 function TodoBackground() {
@@ -19,8 +19,20 @@ function TodoBackground() {
   ]);
   const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
   const [previewBackground, setPreviewBackground] = useState(selectedBackground);
+  const [userProfileImage, setUserProfileImage] = useState('/avatar.png');
+  const navigate = useNavigate();
 
   useEffect(() => {
+
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const loggedInUser = JSON.parse(storedUser);
+      setUser(loggedInUser);
+      if (loggedInUser.photoURL) {
+        setUserProfileImage(loggedInUser.photoURL);
+      }
+    }
+
     const storedBackground = localStorage.getItem('selectedBackground');
     if (storedBackground) {
       setSelectedBackground(storedBackground);
@@ -68,6 +80,8 @@ function TodoBackground() {
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
+    setUserProfileImage('/avatar.png');
+    navigate('/login');
   };
 
   const handleChange = (event) => {
@@ -125,15 +139,14 @@ function TodoBackground() {
             </ul>
           </div>
           <div className='user-profile-container-middlepages'>
-            <div className='avatar-middlepage' onClick={toggleChangeUser}>
-              <img src='/avatar.png' className='userprofileimg' alt='User Profile' />
-            </div>
-            {user ? (
+          <div className='avatar' onClick={toggleChangeUser}>
+          <img src={user ? userProfileImage : '/avatar.png'} className='userprofileimg' alt='User Profile' />
+        </div>
+        {isChangeUserVisible && (
+          user ? (
               <div className='user-info'>
                 <p>{user.email}</p>
-                <Link to="/login">
-                  <button onClick={handleLogout}>Выйти</button>
-                </Link>
+                <button onClick={handleLogout}>Выйти</button>
               </div>
             ) : (
               isChangeUserVisible && (
@@ -147,7 +160,7 @@ function TodoBackground() {
                   <button onClick={closeChangeUser}>Закрыть</button>
                 </div>
               )
-            )}
+            ))}
           </div>
         </div>
         <div className="background-list">

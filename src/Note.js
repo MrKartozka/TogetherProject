@@ -13,15 +13,15 @@ const Note = ({ id, title, text, date, handleDeleteNote, handleRestoreNote, isDe
             <div className='note-footer'>
                 <small>{date}</small>
                 {isDeleted ? (
-                    <div>
+                    <div className='note-footer-box'>
+                        <button className='restore-button' onClick={() => handleRestoreNote(id)}>
+                            Восстановить
+                        </button>
                         <MdDeleteForever
                             onClick={() => handleDeleteNote(id)}
                             className='delete-icon'
                             size='1.3em'
                         />
-                        <button className='restore-button' onClick={() => handleRestoreNote(id)}>
-                            Восстановить
-                        </button>
                     </div>
                 ) : (
                     <MdDeleteForever

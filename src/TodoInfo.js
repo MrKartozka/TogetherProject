@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './Сheckbox.css';
 import './App.css';
 import './TodoInfo.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 
 function FAQItem({ question, answer }) {
   const [isActive, setIsActive] = useState(false);
+  
 
   const toggleAnswer = () => {
     setIsActive(!isActive);
@@ -31,8 +32,19 @@ function App() {
   const [user, setUser] = useState(null);
   const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
   const [previewBackground, setPreviewBackground] = useState(selectedBackground);
+  const navigate = useNavigate();
+  const [userProfileImage, setUserProfileImage] = useState('/avatar.png');
 
   useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const loggedInUser = JSON.parse(storedUser);
+      setUser(loggedInUser);
+      if (loggedInUser.photoURL) {
+        setUserProfileImage(loggedInUser.photoURL);
+      }
+    }
+
     const storedBackground = localStorage.getItem('selectedBackground');
     if (storedBackground) {
       setSelectedBackground(storedBackground);
@@ -48,11 +60,9 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
+    setUserProfileImage('/avatar.png');
+    navigate('/login');
   };
-
-  // const handleChange = (event) => {
-  //   setValue(event.target.value);
-  // };
 
   const toggleChangeUser = () => {
     setChangeUserVisible(!isChangeUserVisible);
@@ -107,15 +117,14 @@ function App() {
             </ul>
           </div>
           <div className='user-profile-container-middlepages'>
-            <div className='avatar-middlepage' onClick={toggleChangeUser}>
-              <img src='/avatar.png' className='userprofileimg' alt='User Profile' />
-            </div>
-            {user ? (
+          <div className='avatar' onClick={toggleChangeUser}>
+          <img src={user ? userProfileImage : '/avatar.png'} className='userprofileimg' alt='User Profile' />
+        </div>
+        {isChangeUserVisible && (
+          user ? (
               <div className='user-info'>
                 <p>{user.email}</p>
-                <Link to="/login">
-                  <button onClick={handleLogout}>Выйти</button>
-                </Link>
+                <button onClick={handleLogout}>Выйти</button>
               </div>
             ) : (
               isChangeUserVisible && (
@@ -129,7 +138,7 @@ function App() {
                   <button onClick={closeChangeUser}>Закрыть</button>
                 </div>
               )
-            )}
+            ))}
           </div>
         </div>
         <div className='faq-box'>

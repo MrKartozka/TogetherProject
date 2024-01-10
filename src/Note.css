@@ -77,19 +77,26 @@ textarea:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-align: center;
 }
 
 .delete-icon {
   cursor: pointer;
-  margin: 0 auto;
+  margin-bottom: -3px;
 }
 
 .restore-button {
-  background-color: #e1e1e1;
-  border: none;
-  border-radius: 25px;
+  background-color: #ffffff;
+  border-radius: 5px;
   cursor: pointer;
-  width: 100px;
+  width: 120px;
+  flex-grow: 1;
+  padding: 5px 10px;
+  margin-right: 10px;
+}
+
+.restore-button:hover {
+  background-color: rgba(207, 207, 207, 0.747)
 }
 
 ::-webkit-scrollbar {

@@ -4,21 +4,21 @@ import './Note.css';
 const AddNote = ({ handleAddNote }) => {
 	const [noteText, setNoteText] = useState('');
 	const characterLimit = 1000;
-	// const titleCharLimit = 30;
+	const titleCharLimit = 20;
 	const [title, setTitle] = useState('');
 
-	// const handleChange = (event) => {
-	// 	if (characterLimit - event.target.value.length >= 0) {
-	// 		setNoteText(event.target.value);
-	// 	}
-	// };
+	const handleChange = (event) => {
+		if (characterLimit - event.target.value.length >= 0) {
+			setNoteText(event.target.value);
+		}
+	};
 
-	// const handleTitleChange = (event) => {
-	// 	if (titleCharLimit - event.target.value.length >= 0) {
-	// 		setTitle(event.target.value);
+	const handleTitleChange = (event) => {
+		if (titleCharLimit - event.target.value.length >= 0) {
+			setTitle(event.target.value);
 
-	// 	}
-	// }
+		}
+	}
 
 	const handleSaveClick = () => {
     if (title.trim().length > 0 || noteText.trim().length > 0) {
@@ -35,14 +35,14 @@ const AddNote = ({ handleAddNote }) => {
 				type='text'
 				value={title}
 				placeholder='Название...'
-				onChange={(event) => setTitle(event.target.value)}
+				onChange={handleTitleChange}
 			/>
 			<textarea
 				rows='120'
 				cols='200'
 				placeholder='Добавить заметку..'
 				value={noteText}
-				onChange={(event) => setNoteText(event.target.value)}
+				onChange={handleChange}
 			/>
 			<div className='note-footer'>
 				<small>

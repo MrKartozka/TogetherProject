@@ -3,6 +3,8 @@ import AddNote from './AddNote';
 import './Note.css';
 import { format, parseISO, isValid } from 'date-fns';
 
+const maxNotes = 10;
+
 const NotesList = ({ notes, handleAddNote, handleDeleteNote }) => {
   return (
     <div className='notes-list'>
@@ -27,7 +29,7 @@ const NotesList = ({ notes, handleAddNote, handleDeleteNote }) => {
           />
         );
       })}
-      <AddNote handleAddNote={handleAddNote} />
+      {notes.length < maxNotes && <AddNote handleAddNote={handleAddNote} />}
     </div>
   );
 };

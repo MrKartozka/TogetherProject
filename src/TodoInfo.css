@@ -1,6 +1,7 @@
 .faq-box {
     margin-top: 200px;
 }
+
 .questions-and-answers {
     margin-bottom: 20px;
     text-align: center;
@@ -40,6 +41,7 @@
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -47,11 +49,12 @@
 
 @media only screen and (max-width: 600px) {
     .faq-box {
-      margin-top: 200px;
+        margin-top: 200px;
     }
-    .question, .answer {
-      font-size: 22px;
-      max-width: 70%;
+
+    .question,
+    .answer {
+        font-size: 22px;
+        max-width: 70%;
     }
-  }
-  
+}

@@ -56,11 +56,15 @@ body {
   border-radius: 50%;
   border: 2px solid white;
 }
+
 .menu__item img {
   padding-right: 10px;
 }
 
-.menu__item, .background-button, .backet-button, .info-button {
+.menu__item,
+.background-button,
+.backet-button,
+.info-button {
   text-decoration: none;
 }
 
@@ -114,7 +118,7 @@ body {
 .user-profile-container-middlepages {
   right: 0;
   position: absolute;
-  padding-right: 5%;
+  padding-right: 3%;
   text-align: center;
 }
 
@@ -156,44 +160,57 @@ body {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  .searchline, .search_input {
+  .header {
     width: 100%;
-    font-size: 16px;
   }
+
+  .searchline,
+  .search_input {
+    width: 100%;
+    font-size: 13px;
+  }
+
   .searchline {
     flex: 1;
     margin: 0 10px;
     padding-left: 10px;
   }
-  .avatar, .avatar-middlepage {
-   width: 40px;
-   height: 40px;
+
+  .avatar,
+  .avatar-middlepage {
+    width: 40px;
+    height: 40px;
   }
- 
+
   .menu__item {
     font-size: 14px;
     padding: 5px;
   }
+
   .navbar {
     display: flex;
     justify-content: space-between;
     margin-left: 0;
     padding: 0 10px;
   }
+
   .buttonbox,
   .user-info button,
   .change-user-popup button {
     font-size: 14px;
-  } 
+  }
+
   .change-user-button {
     font-size: 14px;
   }
+
   .user-info {
     border-radius: 50px;
     justify-content: center;
@@ -211,10 +228,21 @@ body {
     background-color: rgba(255, 255, 255, 0.829);
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35);
   }
+
   .change-user-popup {
     width: 200px;
     left: 50%;
     transform: translateX(-50%);
     margin-top: 30px;
+  }
+
+  .avatar {
+    width: 50%;
+  }
+
+  .userprofileimg {
+    height: 60px;
+    width: 60px;
+    margin-top: 8px;
   }
 }

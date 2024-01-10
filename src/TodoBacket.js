@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Сheckbox.css';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate} from 'react-router-dom';
 import { getDeletedNotesFromFirestore, restoreNoteFromTrash } from './notesService';
 import DeletedNotesList from './DeletedNotesList';
 import { query, where, getDocs, collection, addDoc, deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
@@ -15,8 +15,20 @@ function TodoBacket() {
   const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
   const [previewBackground, setPreviewBackground] = useState(selectedBackground);
   const [deletedNotes, setDeletedNotes] = useState([]);
+  const [userProfileImage, setUserProfileImage] = useState('/avatar.png');
+  const navigate = useNavigate();
 
   useEffect(() => {
+
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const loggedInUser = JSON.parse(storedUser);
+      setUser(loggedInUser);
+      if (loggedInUser.photoURL) {
+        setUserProfileImage(loggedInUser.photoURL);
+      }
+    }
+
     const storedBackground = localStorage.getItem('selectedBackground');
     if (storedBackground) {
       setSelectedBackground(storedBackground);
@@ -46,11 +58,9 @@ function TodoBacket() {
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
+    setUserProfileImage('/avatar.png');
+    navigate('/login');
   };
-
-  // const handleChange = (event) => {
-  //   setValue(event.target.value);
-  // };
 
   const toggleChangeUser = () => {
     setChangeUserVisible(!isChangeUserVisible);
@@ -66,7 +76,6 @@ function TodoBacket() {
         const deletedNotesCollection = collection(firestore, 'deletedNotes');
         const noteRef = doc(deletedNotesCollection, noteId);
         await deleteDoc(noteRef);
-        console.log('Note deleted from trash successfully');
         return true;
       } catch (error) {
         console.error('Error deleting note from trash:', error);
@@ -77,9 +86,7 @@ function TodoBacket() {
   };
   
   const handleDeleteConfirmation = async (noteId) => {
-    const shouldDelete = window.confirm("Do you want to delete this note from the trash?");
-    console.log('Deletion choice made:', shouldDelete);
-  
+    const shouldDelete = window.confirm("Вы точно хотите удалить заметку?");  
     if (!shouldDelete) {
       console.log('Deletion cancelled');
       return;
@@ -87,7 +94,6 @@ function TodoBacket() {
   
     try {
       await deleteNoteFromTrash(noteId);
-      console.log('Deleting note with ID:', noteId);
       setDeletedNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
     } catch (error) {
       console.error('Error deleting note from trash:', error);
@@ -98,7 +104,6 @@ function TodoBacket() {
     restoreNoteFromTrash(user.id, noteId)
       .then(() => {
         setDeletedNotes((prevNotes) => prevNotes.filter((note) => note.id !== noteId));
-        console.log('Note restored successfully');
       })
       .catch((error) => {
         console.error('Error restoring note:', error);
@@ -168,31 +173,30 @@ function TodoBacket() {
               />
             </form>
           </div>
-        <div className='user-profile-container'>
-          <div className='avatar-middlepage' onClick={toggleChangeUser}>
-            <img src='/avatar.png' className='userprofileimg' alt='User Profile' />
-          </div>
-          {user ? (
-            <div className='user-info'>
-              <p>{user.email}</p>
-              <Link to="/login">
-                <button onClick={handleLogout}>Выйти</button>
-              </Link>
-            </div>
-          ) : (
-            isChangeUserVisible && (
-              <div className='change-user-popup'>
-                <Link to="/login" className='change-user-button'>
-                  <p>Войти в профиль</p>
-                </Link>
-                <Link to="/register" className='change-user-button'>
-                  <p>Зарегистрироваться</p>
-                </Link>
-                <button onClick={closeChangeUser}>Закрыть</button>
-              </div>
-            )
-          )}
+          <div className='user-profile-container'>
+          <div className='avatar' onClick={toggleChangeUser}>
+          <img src={user ? userProfileImage : '/avatar.png'} className='userprofileimg' alt='User Profile' />
         </div>
+        {isChangeUserVisible && (
+          user ? (
+              <div className='user-info'>
+                <p>{user.email}</p>
+                <button onClick={handleLogout}>Выйти</button>
+              </div>
+            ) : (
+              isChangeUserVisible && (
+                <div className='change-user-popup'>
+                  <Link to="/login" className='change-user-button'>
+                    <p>Войти в профиль</p>
+                  </Link>
+                  <Link to="/register" className='change-user-button'>
+                    <p>Зарегистрироваться</p>
+                  </Link>
+                  <button onClick={closeChangeUser}>Закрыть</button>
+                </div>
+              )
+            ))}
+          </div>
       </div>
       <div className='note-container'>
           <DeletedNotesList 
