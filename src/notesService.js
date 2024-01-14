@@ -115,10 +115,24 @@ const restoreNoteFromTrash = async (userId, noteId) => {
   }
 };
 
+const updateNoteInFirestore = async (noteId, updatedNote) => {
+  const notesCollection = collection(firestore, 'notes');
+  const noteRef = doc(notesCollection, noteId);
+
+  try {
+    await setDoc(noteRef, updatedNote);
+    console.log('Note updated successfully');
+  } catch (error) {
+    console.error('Error updating note:', error);
+  }
+};
+
+
 export {
   getNotesFromFirestore,
   getDeletedNotesFromFirestore,
   addNoteToFirestore,
   deleteNoteFromFirestore,
-  restoreNoteFromTrash
+  restoreNoteFromTrash,
+  updateNoteInFirestore
 };

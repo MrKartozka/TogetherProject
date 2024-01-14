@@ -14,9 +14,18 @@ const FormReg = ({ title, handleClick }) => {
     const navigate = useNavigate();
     const auth = getAuth();
 
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
+
     const handleRegistration = () => {
         if (pass !== confirmPass) {
             alert("Пароли не совпадают");
+            return;
+        } else if (pass.length < 5) {
+            alert(`Длина вашего пароля должна быть от 5 до 16 символов`)
             return;
         }
         handleClick(email, pass);
@@ -59,21 +68,33 @@ const FormReg = ({ title, handleClick }) => {
                     placeholder='Почта...'
                     maxLength={30}
                 />
+                <div className='password-container'>
                 <input 
                     className='passwordbox'
-                    type='password'
+                    type={isPasswordVisible ? 'text' : 'password'}
                     value={pass}
                     onChange={(e) => setPass(e.target.value)}
                     placeholder='Пароль...'
                     maxLength={16}
                 />
+                <img 
+                    src= {isPasswordVisible ? "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAASVJREFUSEvtlMFNw0AQRV86IVckGuBEKgmcUgZQCXBLF8mNAhBn0gIVgB6srcWe8ToSuWUlyyvvzP9/vmdnwYnX4sT4nAmaDrcsugDWwA3g3udQUH2/AM9TLFME98BDU+IvoSSPUWxEoMqnonoGfh8i0aqq8OdgSJCBm6xClRqjZVbovl4jkiHBLlBu0jIoRXDjI5I+via4LdYMse6K8itgC3wCG+CtiJEky/lj0UegxkTVWMU7cFmQXoHrEm/ecPVV1xVE9rQIPP+aS5BZZGfsgciilq2jLvqPn6wYRaVtmnWGLerNddmm3pXU+4zA71n7BXijOzBq52xUdDNozqiQxbjZo6KW1d1aB15nTT3s9DsEnrKoZcVR561xfRRYFHwmaFr4Dfk2Pxn3UZ+9AAAAAElFTkSuQmCC" : "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVRJREFUSEu1ldFRAzEMRPc6CZWQVAJUQlIJUAlQCXQC8zLejKKTL/5wPJNx7MvprVa2sujOY7lzfGXAq6QPSb+zwBFA8GMLfpgFiYCdpE9JzGQwBZItqiB7SY+SmHnO+GozdvK9a2lV5AgZLQXWlrXrAd6aYgNQabXsIYLfOCP2SlsrixzcabsmQLDJwV4kPbWDYSErSAZQZAd5aG+58NkuAO+SflIm7PHsPKpjmtWwriAW4JpFAYZfAayEgj2n49qDWORfSg+rzgJiBgZAx+98JyqIPefdOEpAvskxoANlCNkyPBvC+pQzYO0sqoC9Pd6Lx5Xs6QKrIvuHW9b0MokHw8UvARnCGkV8bIMh1R24Cl5ZFAvlCxfTT7VcFXbVIEf+cDiyqDUo3uzv   1iLcNm7e5C2FW8+6rX4kg1FohJQ3eTTQrUzoZfSj7imaAbrEmGlRKewfWrhhGfTAcnwAAAAASUVORK5CYII="}
+                    alt='Show password'
+                    onClick={togglePasswordVisibility}
+                    className='password-toggle-icon'
+                />
+                </div>
+                <div className='password-container'>
                 <input
                     className='passwordbox'
                     type='password'
                     value={confirmPass}
                     onChange={(e) => setConfirmPass(e.target.value)}
                     placeholder='Подтвердите пароль...'
+                    maxLength={16}
                 />
+
+                </div>
                 <button className='buttonbox' onClick={handleRegistration}>
                     {title}
                 </button>

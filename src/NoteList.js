@@ -5,7 +5,7 @@ import { format, parseISO, isValid } from 'date-fns';
 
 const maxNotes = 10;
 
-const NotesList = ({ notes, handleAddNote, handleDeleteNote }) => {
+const NotesList = ({ notes, handleAddNote, handleDeleteNote, handleUpdateNote }) => {
   return (
     <div className='notes-list'>
       {notes.map((note) => {
@@ -26,6 +26,7 @@ const NotesList = ({ notes, handleAddNote, handleDeleteNote }) => {
             text={note.text}
             date={formattedDate}
             handleDeleteNote={handleDeleteNote}
+            handleUpdateNote={handleUpdateNote}
           />
         );
       })}

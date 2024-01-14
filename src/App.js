@@ -10,7 +10,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { nanoid } from 'nanoid';
 import NoteList from './NoteList';
-import { getNotesFromFirestore, addNoteToFirestore, deleteNoteFromFirestore, restoreNoteFromTrash } from './notesService';
+import { getNotesFromFirestore, addNoteToFirestore, deleteNoteFromFirestore, restoreNoteFromTrash, updateNoteInFirestore } from './notesService';
 
 function App() {
   const [searchText, setSearchText] = useState('');
@@ -115,6 +115,14 @@ function App() {
     navigate('/login');
   };
   
+  const handleUpdateNote = async (id, title, text) => {
+    if (user) {
+      const updatedNote = { userId: user.id, title, text, date: new Date().toLocaleDateString() };
+      await updateNoteInFirestore(id, updatedNote);
+      setNotes(notes.map(note => note.id === id ? { ...note, title, text } : note));
+    }
+  };
+
   return (
     <div className='header'>
       <div className='container'>
@@ -200,6 +208,7 @@ function App() {
             )}
             handleAddNote={addNote}
             handleDeleteNote={deleteNote}
+            handleUpdateNote={handleUpdateNote}
           />
         </div>
       </div>

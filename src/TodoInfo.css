@@ -57,4 +57,22 @@
         font-size: 22px;
         max-width: 70%;
     }
+
+    .user-info {
+        border-radius: 50px;
+        justify-content: center;
+        width: 200px;
+        height: 70px;
+        display: flex;
+        position: absolute;
+        font-size: 14px;
+        padding: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 40px;
+        align-items: center;
+        flex-direction: column;
+        background-color: rgba(255, 255, 255, 0.829);
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.35);
+    }
 }

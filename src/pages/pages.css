@@ -18,7 +18,7 @@
 
 .auth-menu__box .emailbox,
 .auth-menu__box .passwordbox {
-    text-indent: 10px; 
+    text-indent: 10px;
 }
 
 .registerlink {
@@ -98,8 +98,8 @@ h1 {
     font-size: 20px;
     font-weight: 600;
     text-decoration: none;
-  }
-  
+}
+
 .menu__item.aboutnote {
     bottom: 0;
     position: absolute;
@@ -124,24 +124,25 @@ a:hover {
 .password-container {
     display: flex;
     align-items: center;
-  }
-  
-  .passwordbox {
+}
+
+.passwordbox {
     flex-grow: 1;
-  }
-  
-  .password-toggle-icon {
-    margin-left: -25px;
+}
+
+.password-toggle-icon {
+    margin-left: -24px;
     margin-top: 15px;
     cursor: pointer;
 }
 
 @keyframes slowShowing {
     0% {
-      opacity: 0;
+        opacity: 0;
     }
+
     100% {
-      opacity: 1;
+        opacity: 1;
     }
 }
 
@@ -151,7 +152,9 @@ a:hover {
         max-width: 100%;
         margin-top: 100px;
     }
-    .emailbox, .passwordbox {
+
+    .emailbox,
+    .passwordbox {
         width: 300px;
     }
 
@@ -161,4 +164,3 @@ a:hover {
         margin-top: 100px;
     }
 }
-
