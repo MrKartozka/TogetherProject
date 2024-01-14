@@ -3,7 +3,10 @@ import './Сheckbox.css';
 import './App.css';
 import { Link, useNavigate } from 'react-router-dom';
 import './TodoBackground.css';
+import { doc, setDoc } from 'firebase/firestore';
+import { firestore } from './firebase';
 
+// Компонент для изменения и сохранения настроек фона
 function TodoBackground() {
   const [isBackgroundModalVisible, setBackgroundModalVisible] = useState(false);
   const [backgrounds, setBackgrounds] = useState([
@@ -23,7 +26,6 @@ function TodoBackground() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const loggedInUser = JSON.parse(storedUser);
@@ -41,6 +43,7 @@ function TodoBackground() {
     }
   }, []);
 
+  // Обработчики для открытия/закрытия модели выбора фона
   const openBackgroundModal = () => {
     setBackgroundModalVisible(true);
   };
@@ -49,17 +52,24 @@ function TodoBackground() {
     setBackgroundModalVisible(false);
   };
 
+  // Обработать выбор фона и сохранить
   const handleBackgroundSelection = (background) => {
     setPreviewBackground(background);
     document.body.style.backgroundImage = `url(${background})`;
   };
 
-  const handleSaveBackground = () => {
+  const handleSaveBackground = async () => {
     setSelectedBackground(previewBackground);
     localStorage.setItem('selectedBackground', previewBackground);
     closeBackgroundModal();
+  
+    if (user) {
+      const userRef = doc(firestore, 'users', user.id);
+      await setDoc(userRef, { selectedBackground: previewBackground }, { merge: true });
+    }
   };
 
+  // Отменить изменение фона
   const handleCancel = () => {
     setPreviewBackground(selectedBackground);
     document.body.style.backgroundImage = `url(${selectedBackground})`;

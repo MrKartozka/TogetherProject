@@ -4,11 +4,12 @@ import { useDispatch } from 'react-redux';
 import { setUser } from 'store/slices/userSlice';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-
+// Компонент для страницы регистрации
 const SignUp = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    // Обрабатывает регистрацию пользователя с помощью электронной почты и пароля
     const handleRegister = (email, password) => {
         const auth = getAuth();
         createUserWithEmailAndPassword(auth, email, password)
@@ -28,6 +29,7 @@ const SignUp = () => {
             .catch(console.error);
     }
 
+    // Отображает регистрационную форму с помощью обратного вызова "handleRegister"
     return (
         <FormReg
             title='Принять'

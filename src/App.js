@@ -10,8 +10,11 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { nanoid } from 'nanoid';
 import NoteList from './NoteList';
-import { getNotesFromFirestore, addNoteToFirestore, deleteNoteFromFirestore, restoreNoteFromTrash, updateNoteInFirestore } from './notesService';
+import { getNotesFromFirestore, addNoteToFirestore, deleteNoteFromFirestore, restoreNoteFromTrash, updateNoteInFirestore, getDeletedNotesFromFirestore } from './notesService';
+import { doc, getDoc } from 'firebase/firestore';
+import { firestore } from './firebase';
 
+// Основной компонент приложения
 function App() {
   const [searchText, setSearchText] = useState('');
   const [user, setUser] = useState(null);
@@ -21,7 +24,10 @@ function App() {
   const [userProfileImage, setUserProfileImage] = useState('/avatar.png');
   const [isChangeUserVisible, setChangeUserVisible] = useState(false);
   const navigate = useNavigate();
+  const [deletedNotes, setDeletedNotes] = useState([]);
+  const maxNotes = 4;
 
+  // Извлекает пользовательские данные из localStorage при монтировании компонента
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -30,6 +36,7 @@ function App() {
       if (loggedInUser.photoURL) {
         setUserProfileImage(loggedInUser.photoURL);
       }
+      fetchUserBackground(loggedInUser.id);
     }
 
     const storedBackground = localStorage.getItem('selectedBackground');
@@ -45,44 +52,48 @@ function App() {
     }
   }, []);
 
+  // Сохраняет заметки в localStorage всякий раз, когда они меняются
   useEffect(() => {
     localStorage.setItem('react-notes-app-data', JSON.stringify(notes));
   }, [notes]);
 
-  const handleCreateNote = async (title, text) => {
-    if (user) {
-      const userId = user.id;
-      const newNote = await addNoteToFirestore(userId, title, text);
-      setNotes([...notes, newNote]);
-    }
-  };
-
+  // Извлекает активные и удаленные заметки из Firestore
   useEffect(() => {
     if (user) {
-      getNotesFromFirestore(user.id)
-        .then((notes) => {
-          console.log("Fetched notes from Firestore:", notes);
-          setNotes(notes);
-        })
-        .catch((error) => {
-          console.error("Error fetching notes from Firestore:", error);
-        });
+      const fetchNotes = async () => {
+        const activeNotes = await getNotesFromFirestore(user.id);
+        const trashedNotes = await getDeletedNotesFromFirestore(user.id);
+        setNotes(activeNotes);
+        setDeletedNotes(trashedNotes);
+      };
+
+      fetchNotes().catch(console.error);
     }
   }, [user]);
   
-  const addNote = (text, title) => {
-    const date = new Date();
-    const newNote = {
-      id: nanoid(),
-      title: title,
-      text: text,
-      date: date.toLocaleDateString(),
-    };
-
-    setNotes([...notes, newNote]);
-    handleCreateNote(title, text);
+  // Создает новую заметку и добавляет ее в Firestore
+  const handleCreateNote = async (title, text) => {
+    if (notes.length + deletedNotes.length < maxNotes) {
+      const newNote = await addNoteToFirestore(user.id, title, text, maxNotes);
+      if (newNote) {
+        setNotes([...notes, newNote]);
+      }
+    } else {
+      console.error("Cannot add more notes. Limit reached.");
+    }
   };
 
+  // Добавление заметки
+  const addNote = async (text, title) => {
+    const newNote = await handleCreateNote(title, text);
+    if (newNote) {
+        setNotes([...notes, newNote]);
+    } else {
+        console.error("Failed to add note or limit reached.");
+    }
+};
+
+  // Удаление заметки
   const deleteNote = (id) => {
     if (user) {
       const noteToDelete = notes.find((note) => note.id === id);
@@ -100,14 +111,17 @@ function App() {
     }
   };
 
+  // Переключение видимости профиля пользователя
   const toggleChangeUser = () => {
     setChangeUserVisible(!isChangeUserVisible);
   };
 
+  // Закрыть всплывающее окно профиля пользователя
   const closeChangeUser = () => {
     setChangeUserVisible(false);
   };
 
+  // Обработчик выхода из системы
   const handleLogout = () => {
     localStorage.removeItem('user');
     setUser(null);
@@ -115,11 +129,27 @@ function App() {
     navigate('/login');
   };
   
+  // Примечание об обновлении заметки в Firestore
   const handleUpdateNote = async (id, title, text) => {
     if (user) {
       const updatedNote = { userId: user.id, title, text, date: new Date().toLocaleDateString() };
       await updateNoteInFirestore(id, updatedNote);
       setNotes(notes.map(note => note.id === id ? { ...note, title, text } : note));
+    }
+  };
+
+  // Получить фоновое изображение пользователя из Firestore
+  const fetchUserBackground = async (userId) => {
+    const userRef = doc(firestore, 'users', userId);
+    try {
+      const docSnap = await getDoc(userRef);
+      if (docSnap.exists() && docSnap.data().selectedBackground) {
+        const userBackground = docSnap.data().selectedBackground;
+        document.body.style.backgroundImage = `url(${userBackground})`;
+        setSelectedBackground(userBackground);
+      }
+    } catch (error) {
+      console.error('Error fetching user background:', error);
     }
   };
 
@@ -209,6 +239,8 @@ function App() {
             handleAddNote={addNote}
             handleDeleteNote={deleteNote}
             handleUpdateNote={handleUpdateNote}
+            maxNotes={maxNotes}
+            deletedNotesCount={deletedNotes.length}
           />
         </div>
       </div>

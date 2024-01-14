@@ -3,7 +3,7 @@ import { Login } from 'components/Login';
 import { Link } from 'react-router-dom';
 import './pages.css';
 
-
+// Компонент страницы входа в систему
 const LoginPage = () => {
   const [value, setValue] = useState('');
   const [isChangeUserVisible, setChangeUserVisible] = useState(false);
@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
   const [previewBackground, setPreviewBackground] = useState(selectedBackground);
 
+  // Эффект для обработки фона и сеанса пользователя
   useEffect(() => {
     const storedBackground = localStorage.getItem('selectedBackground');
     if (storedBackground) {
@@ -18,6 +19,7 @@ const LoginPage = () => {
       document.body.style.backgroundImage = `url(${storedBackground})`;
       setPreviewBackground(storedBackground);
     }
+    // Загрузка сеана пользователя из локального хранилища
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));

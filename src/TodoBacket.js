@@ -7,6 +7,7 @@ import DeletedNotesList from './DeletedNotesList';
 import { query, where, getDocs, collection, addDoc, deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
 import { firestore } from './firebase';
 
+// Компонент для страницы корзины
 function TodoBacket() {
   const [searchText, setSearchText] = useState('');
   const [value, setValue] = useState('');
@@ -18,8 +19,8 @@ function TodoBacket() {
   const [userProfileImage, setUserProfileImage] = useState('/avatar.png');
   const navigate = useNavigate();
 
+  // Извлекает пользовательские данные из localStorage при монтировании компонента
   useEffect(() => {
-
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       const loggedInUser = JSON.parse(storedUser);
@@ -42,6 +43,7 @@ function TodoBacket() {
     }
   }, []);
 
+  // Извлекать удаленные заметки для пользователя
   useEffect(() => {
     if (user) {
       getDeletedNotesFromFirestore(user.id)
@@ -70,6 +72,7 @@ function TodoBacket() {
     setChangeUserVisible(false);
   };
 
+  // Удалить заметку навсегда
   const deleteNoteFromTrash = async (noteId) => {
     if (user) {
       try {
@@ -85,6 +88,7 @@ function TodoBacket() {
     return false;
   };
   
+  // Подтвердить перед удалением заметки
   const handleDeleteConfirmation = async (noteId) => {
     const shouldDelete = window.confirm("Вы точно хотите удалить заметку?");  
     if (!shouldDelete) {
@@ -100,6 +104,7 @@ function TodoBacket() {
     }
   };
   
+  // Восстановление заметки
   const handleRestoreNote = async (noteId) => {
     restoreNoteFromTrash(user.id, noteId)
       .then(() => {
@@ -110,6 +115,7 @@ function TodoBacket() {
       });
   };
 
+  // Фильтровать удаленные заметки на основе текста поиска
   const getFilteredDeletedNotes = () => {
     return searchText 
       ? deletedNotes.filter(note => 

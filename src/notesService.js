@@ -1,7 +1,8 @@
-// notesService.js
+// Сервисные функции для взаимодействия с Firestore для управления заметками (этот файл)
 import { query, where, getDocs, collection, addDoc, deleteDoc, doc, setDoc, getDoc } from 'firebase/firestore';
 import { firestore } from './firebase';
 
+// Извлечение активных заметок из Firestore
 const getNotesFromFirestore = async (userId) => {
   const notesCollection = collection(firestore, 'notes');
   const q = query(notesCollection, where('userId', '==', userId));
@@ -21,6 +22,7 @@ const getNotesFromFirestore = async (userId) => {
   return notes;
 };
 
+// Извлечение удаленных заметок из Firestore
 const getDeletedNotesFromFirestore = async (userId) => {
   const deletedNotesCollection = collection(firestore, 'deletedNotes');
   const q = query(deletedNotesCollection, where('userId', '==', userId));
@@ -41,34 +43,33 @@ const getDeletedNotesFromFirestore = async (userId) => {
   return deletedNotes;
 };
 
+// Добавление новой заметки в Firestore
+const addNoteToFirestore = async (userId, title, text, maxNotes) => {
+  const activeNotes = await getNotesFromFirestore(userId);
+  const deletedNotes = await getDeletedNotesFromFirestore(userId);
 
-const addNoteToFirestore = async (userId, title, text) => {
-  const notesCollection = collection(firestore, 'notes');
-  const date = new Date().toLocaleDateString();
+  if (activeNotes.length + deletedNotes.length < maxNotes) {
+    const date = new Date().toLocaleDateString();
+    const docRef = await addDoc(collection(firestore, 'notes'), {
+        userId,
+        title,
+        text,
+        date,
+    });
 
-  const docRef = await addDoc(notesCollection, {
-    userId,
-    title,
-    text,
-    date,
-  });
-
-  const docSnapshot = await getDoc(docRef);
-
-  if (docSnapshot.exists()) {
-    const data = docSnapshot.data();
     return {
-      id: docSnapshot.id,
-      title: data.title,
-      text: data.text,
-      date: data.date,
+        id: docRef.id,
+        title,
+        text,
+        date,
     };
-  } else {
+} else {
+    console.error("Cannot add more notes. Limit reached.");
     return null;
-  }
+}
 };
 
-
+// Переместить заметку в коллекцию удаленных заметок в Firestore
 const deleteNoteFromFirestore = async (userId, noteId) => {
   const notesCollection = collection(firestore, 'notes');
   const deletedNotesCollection = collection(firestore, 'deletedNotes');
@@ -92,6 +93,7 @@ const deleteNoteFromFirestore = async (userId, noteId) => {
   }
 };
 
+// Восстановить заметку из коллекции удаленных заметок в Firestore
 const restoreNoteFromTrash = async (userId, noteId) => {
   const notesCollection = collection(firestore, 'notes');
   const deletedNotesCollection = collection(firestore, 'deletedNotes');
@@ -115,6 +117,7 @@ const restoreNoteFromTrash = async (userId, noteId) => {
   }
 };
 
+// Обновить существующую заметку в Firestore
 const updateNoteInFirestore = async (noteId, updatedNote) => {
   const notesCollection = collection(firestore, 'notes');
   const noteRef = doc(notesCollection, noteId);

@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import './Note.css';
 
+// Компонент для добавления новой заметки
 const AddNote = ({ handleAddNote }) => {
 	const [noteText, setNoteText] = useState('');
 	const characterLimit = 1000;
 	const titleCharLimit = 20;
 	const [title, setTitle] = useState('');
 
+	// Обновление текста, соблюдая ограничение по количеству символов
 	const handleChange = (event) => {
 		if (characterLimit - event.target.value.length >= 0) {
 			setNoteText(event.target.value);
@@ -20,6 +22,7 @@ const AddNote = ({ handleAddNote }) => {
 		}
 	}
 
+	// Сохранение новой заметки при нажатии кнопки сохранить
 	const handleSaveClick = () => {
     if (title.trim().length > 0 || noteText.trim().length > 0) {
         console.log('Saving note:', { title, noteText });

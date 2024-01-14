@@ -5,6 +5,7 @@ import { setUser } from 'store/slices/userSlice';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 
+// Функциональный компонент для регистрационной формы
 const FormReg = ({ title, handleClick }) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
@@ -16,10 +17,12 @@ const FormReg = ({ title, handleClick }) => {
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+    // Переключает видимость пароля
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
 
+    // Обрабатывает регистрацию пользователя
     const handleRegistration = () => {
         if (pass !== confirmPass) {
             alert("Пароли не совпадают");
@@ -31,6 +34,7 @@ const FormReg = ({ title, handleClick }) => {
         handleClick(email, pass);
     };
 
+    // Обрабатывает вход в систему Google
     const signInWithGoogle = async () => {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();

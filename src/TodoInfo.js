@@ -4,10 +4,11 @@ import './App.css';
 import './TodoInfo.css';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 
+// Компонент для отображения информации и часто задаваемых вопросов
 function FAQItem({ question, answer }) {
   const [isActive, setIsActive] = useState(false);
-  
 
+  // Переключить отображение ответа
   const toggleAnswer = () => {
     setIsActive(!isActive);
   };

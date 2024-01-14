@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { MdDeleteForever, MdEdit, MdSave } from 'react-icons/md';
 import './Note.css';
 
+// Компонент для отображения заметки
 const Note = ({ id, title, text, date, handleDeleteNote, handleRestoreNote, handleUpdateNote, isDeleted }) => {
     const [editMode, setEditMode] = useState(false);
     const [editedTitle, setEditedTitle] = useState(title);

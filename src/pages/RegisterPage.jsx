@@ -3,13 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './pages.css';
 
+// Компонент страницы для регистрации пользователя
 const RegisterPage = () => {
   const [value, setValue] = useState('');
   const [isChangeUserVisible, setChangeUserVisible] = useState(false);
   const [user, setUser] = useState(null);
-  const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png');
+  const [selectedBackground, setSelectedBackground] = useState('/public/onebackground.png'); // Состояние для выбора фона и видимости изменений пользователем
   const [previewBackground, setPreviewBackground] = useState(selectedBackground);
 
+  // Эффект для настройки фона и информации о пользователе
   useEffect(() => {
     const storedBackground = localStorage.getItem('selectedBackground');
     if (storedBackground) {
@@ -17,13 +19,13 @@ const RegisterPage = () => {
       document.body.style.backgroundImage = `url(${storedBackground})`;
       setPreviewBackground(storedBackground);
     }
+    // Извлечение и устанавление информации о пользователе из локального хранилища
     const loggedInUser = localStorage.getItem('user');
     if (loggedInUser) {
       setUser(JSON.parse(loggedInUser));
     }
-
-
   }, []);
+  
   return (
     <div className='header'>
       <div className='navbar'>

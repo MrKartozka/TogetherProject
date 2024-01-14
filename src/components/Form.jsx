@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from 'store/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 
-
+// Функциональный компонент для формы входа в систему
 const Form = ({ title, handleClick }) => {
 
     const dispatch = useDispatch();
@@ -19,10 +19,12 @@ const Form = ({ title, handleClick }) => {
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+    // Переключает видимость пароля
     const togglePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
 
+    // Обрабатывает вход в систему с помощью Google
     const signInWithGoogle = async () => {
         const auth = getAuth();
         const provider = new GoogleAuthProvider();

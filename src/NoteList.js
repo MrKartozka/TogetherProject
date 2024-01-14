@@ -3,9 +3,8 @@ import AddNote from './AddNote';
 import './Note.css';
 import { format, parseISO, isValid } from 'date-fns';
 
-const maxNotes = 10;
-
-const NotesList = ({ notes, handleAddNote, handleDeleteNote, handleUpdateNote }) => {
+// Компонент для отображения списка заметок
+const NotesList = ({ notes, handleAddNote, handleDeleteNote, handleUpdateNote, maxNotes, deletedNotesCount }) => {
   return (
     <div className='notes-list'>
       {notes.map((note) => {
@@ -30,7 +29,7 @@ const NotesList = ({ notes, handleAddNote, handleDeleteNote, handleUpdateNote })
           />
         );
       })}
-      {notes.length < maxNotes && <AddNote handleAddNote={handleAddNote} />}
+      {(notes.length + deletedNotesCount) < maxNotes && <AddNote handleAddNote={handleAddNote} />}
     </div>
   );
 };

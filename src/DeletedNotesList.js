@@ -1,6 +1,7 @@
 import React from 'react';
 import Note from './Note';
 
+// Компонент для отображения списка удаленных заметок
 const DeletedNotesList = ({ deletedNotes, handleDeleteNote, handleRestoreNote, setDeletedNotes }) => {
   return (
     <div className="notes-list">
