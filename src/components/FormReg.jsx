@@ -16,6 +16,7 @@ const FormReg = ({ title, handleClick }) => {
     const auth = getAuth();
 
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [userProfileImage, setUserProfileImage] = useState('/avatar.png');
 
     // Переключает видимость пароля
     const togglePasswordVisibility = () => {
@@ -28,7 +29,7 @@ const FormReg = ({ title, handleClick }) => {
             alert("Пароли не совпадают");
             return;
         } else if (pass.length < 5) {
-            alert(`Длина вашего пароля должна быть от 5 до 16 символов`)
+            alert(`Длина вашего пароля должна быть от 6 до 16 символов`)
             return;
         }
         handleClick(email, pass);
@@ -41,25 +42,33 @@ const FormReg = ({ title, handleClick }) => {
         try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
-
+    
+            if (user.photoURL) {
+                setUserProfileImage(user.photoURL);
+            } else {
+                setUserProfileImage('/avatar.png');
+            }
+    
             dispatch(setUser({
                 email: user.email,
                 id: user.uid,
                 token: user.accessToken,
+                photoURL: user.photoURL
             }));
-
+    
             localStorage.setItem('user', JSON.stringify({
                 email: user.email,
                 id: user.uid,
                 token: user.accessToken,
+                photoURL: user.photoURL 
             }));
-
+    
             navigate('/');
         } catch (error) {
             console.error(error);
         }
     };
-
+    
     return (
         <div className='auth-menu-reg'>
             <div className='auth-menu__box'>

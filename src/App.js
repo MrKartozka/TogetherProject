@@ -25,7 +25,7 @@ function App() {
   const [isChangeUserVisible, setChangeUserVisible] = useState(false);
   const navigate = useNavigate();
   const [deletedNotes, setDeletedNotes] = useState([]);
-  const maxNotes = 4;
+  const maxNotes = 10;
 
   // Извлекает пользовательские данные из localStorage при монтировании компонента
   useEffect(() => {
